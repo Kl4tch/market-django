@@ -5,7 +5,7 @@
   <title>Продукты</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+  <link rel="stylesheet" href="{% static 'bootstrap-4.2.1-dist/css/bootstrap.min.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
   <script src="{% static 'bootstrap-4.2.1-dist/js/bootstrap.min.js' %}"></script>
@@ -14,8 +14,35 @@
 
 <nav class="navbar navbar-expand-lg navbar-black bg-dark">
     <a href="#" class="navbar-brand">
-    <img src="https://pp.userapi.com/c836320/v836320161/3d126/X8GqhKmWMx8.jpg" height="150px">
+        <img src="https://pp.userapi.com/c836320/v836320161/3d126/X8GqhKmWMx8.jpg" height="150px">
     </a>
+
+    <button class="navbar-toggler" type="button"
+            data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportContent">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a href="#" class="nav-link">Главная</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Новости</a>
+            </li>
+            <li class="nav-item">
+                <a href="#" class="nav-link">Корзина</a>
+            </li>
+        </ul>
+        <form action="" class="form-inline my-2 my-lg-0">
+            <input type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
+            <button class="btn btn-outline-success my-2 my-sm-0">
+                Найти
+            </button>
+        </form>
+    </div>
+
 </nav>
 
 <div class="container">
