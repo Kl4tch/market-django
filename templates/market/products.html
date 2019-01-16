@@ -16,6 +16,11 @@
             <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4" style="margin-bottom: 20px;">
                 <div class="f_p_item">
                     <div class="f_p_img">
+                         {% for img in all_images %}
+                             {% if img.item.id == item.id %}
+                                  <img src="{{ img.file.url }}" height="50px">
+                             {% endif %}
+                        {% endfor %}
                         <img class="img-fluid" src="https://pp.userapi.com/c836320/v836320161/3d126/X8GqhKmWMx8.jpg" >
                         <div class="p_icon">
                             <a href="#"><i class="lnr lnr-heart"></i></a>
@@ -23,7 +28,7 @@
                         </div>
                     </div>
                     <div>
-                        <h2 class = "title1" style="text-align: center"><a href="#">{{  item.title   }}</a></h2>
+                        <h2 class = "title1" style="text-align: center"><a href="{{ item.id }}">{{  item.title   }}</a></h2>
                     </div>
                     <h5 style="margin-bottom: 20px;text-align: center">{{ item.price }} руб</h5>
                 </div>
