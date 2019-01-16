@@ -8,7 +8,7 @@ def index(request):
 
 
 def test(request):
-    return render(request, 'market/category.html')
+    return render(request, 'market/test/category.html')
 
 
 def detail(request, iditem):
