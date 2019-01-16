@@ -7,6 +7,10 @@ def index(request):
     return render(request, 'market/index.html')
 
 
+def test(request):
+    return render(request, 'market/category.html')
+
+
 def products(request):
     all_items = Items.objects.all()
 

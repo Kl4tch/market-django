@@ -5,6 +5,7 @@
   <title>Продукты</title>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="{% static 'market.css' %}">
   <link rel="stylesheet" href="{% static 'bootstrap-4.2.1-dist/css/bootstrap.min.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
@@ -12,46 +13,40 @@
 </head>
 <body>
 
-<nav class="navbar navbar-expand-lg navbar-black bg-dark">
-    <a href="#" class="navbar-brand">
-        <img src="https://pp.userapi.com/c836320/v836320161/3d126/X8GqhKmWMx8.jpg" height="150px">
-    </a>
+<nav class="navbar navbar-expand-lg navbar-default bg-light">
+   <a href="#" class="navbar-brand">
+                <img src="https://pp.userapi.com/c836320/v836320161/3d126/X8GqhKmWMx8.jpg" height="50px">
+            </a>
 
-    <button class="navbar-toggler" type="button"
-            data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
+  <div>
+    <ul class="navbar-nav">
+      <li class="active">
+        <a class="nav-link" href="#">Главная </a>
+      </li>
+      <li>
+        <a class="nav-link" href="#">О нас</a>
+      </li>
+      <li>
+        <a class="nav-link" href="#">Обратная связь</a>
+      </li>
+    </ul>
 
-    <div class="collapse navbar-collapse" id="navbarSupportContent">
-        <ul class="navbar-nav mr-auto">
-            <li class="nav-item active">
-                <a href="#" class="nav-link">Главная</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Новости</a>
-            </li>
-            <li class="nav-item">
-                <a href="#" class="nav-link">Корзина</a>
-            </li>
-        </ul>
-        <form action="" class="form-inline my-2 my-lg-0">
-            <input type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
-            <button class="btn btn-outline-success my-2 my-sm-0">
-                Найти
-            </button>
-        </form>
-    </div>
-
-</nav>
+    <form action="" class="form-inline my-2 my-lg-0">
+        <input type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
+        <button class="btn btn-outline-success my-2 my-sm-0">
+            Найти
+        </button>
+    </form>
+  </div>
+</nav>﻿
 
 <div class="container">
       <div class="row">
-          <div class="latest_product_inner row">
+          <div class="row col-12">
 
             {% for item in all_items %}
 
-            <div class="col-lg-4 col-md-4 col-sm-6">
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4">
                 <div class="f_p_item">
                     <div class="f_p_img">
                         <img class="img-fluid" src="https://pp.userapi.com/c836320/v836320161/3d126/X8GqhKmWMx8.jpg" >
@@ -60,7 +55,9 @@
                             <a href="#"><i class="lnr lnr-cart"></i></a>
                         </div>
                     </div>
-                    <a href="#"><h4>{{ item.title }}</h4></a>
+                    <div>
+                        <h2 class = "title1" style=""><a href="#">{{  item.title   }}</a></h2>
+                    </div>
                     <h5>{{ item.price }} руб</h5>
                 </div>
             </div>
