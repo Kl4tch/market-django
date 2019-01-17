@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import *
 
 
@@ -13,8 +13,9 @@ def test(request):
 
 def detail(request, iditem):
     item = get_object_or_404(Items, id=iditem)
+    images = get_list_or_404(Image, item=iditem)
 
-    return render(request, 'market/detail.html', {'item': item })
+    return render(request, 'market/detail.html', {'item': item, 'images': images })
 
 
 def products(request):

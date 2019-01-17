@@ -20,3 +20,6 @@ class Image(models.Model):
     item = models.ForeignKey('Items', on_delete=models.CASCADE)
     position = models.IntegerField()
     file = models.ImageField(upload_to='media')
+
+    def __str__(self):
+        return str(self.item) + " - " + str(self.position)

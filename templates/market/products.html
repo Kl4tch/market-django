@@ -11,7 +11,7 @@
                     <div class="f_p_img">
                          {% for img in all_images %}
                              {% if img.item.id == item.id and img.position == 1  %}
-                                  <img class="img-fluid" style="height: 200px; display: block; margin: 0 auto;" src="{{ img.file.url }}">
+                                 <a href="{{ item.id }}"><img class="img-fluid" style="height: 200px; display: block; margin: 0 auto;" src="{{ img.file.url }}"></a>
                              {% endif %}
                         {% endfor %}
                         <div class="p_icon">
