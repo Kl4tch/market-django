@@ -18,10 +18,16 @@ def detail(request, iditem):
     return render(request, 'market/detail.html', {'item': item, 'images': images })
 
 
-def products(request):
-    all_items = Items.objects.all()
+def products(request, category):
+    all_items = Items.objects.filter(category__in=Category.objects.filter(folder=category))
     all_images = Image.objects.all()
 
     context = {'all_items': all_items, 'all_images': all_images}
 
     return render(request, 'market/products.html', context)
+
+
+def category(request):
+    categories = get_list_or_404(Category)
+
+    return render(request, 'market/categories.html', {'categories': categories})

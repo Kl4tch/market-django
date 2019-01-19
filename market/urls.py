@@ -20,10 +20,11 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('', views.products, name='main'),
+    path('', views.category),
     path('index', views.index, name='main2'),
     path('test', views.test, name='test'),
     path('<int:iditem>', views.detail, name='detail'),
+    path('category/<str:category>', views.products),
 ]
 
 

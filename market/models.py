@@ -26,8 +26,13 @@ class Category(models.Model):
 
 class ItemAttribute(models.Model):
     item = models.ForeignKey('Items', on_delete=models.SET_NULL, null=True)
-    attr = models.ForeignKey('Atribute', on_delete=models.SET_NULL, null=True)
+    attr = models.ForeignKey('Atribute',
+                             on_delete=models.SET_NULL,
+                             null=True,)
     value = models.CharField(max_length=30)
+
+    class Meta:
+        unique_together = (('attr', 'item'),)
 
     def __str__(self):
         return str(self.item) + " - " + str(self.attr)

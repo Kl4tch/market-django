@@ -1,0 +1,30 @@
+{% extends 'market/base.html' %}
+{% block content %}
+<div class="container">
+      <div class="row">
+          <div class="row col-12">
+
+            {% for category in categories %}
+
+            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4" style="margin-bottom: 20px;">
+                <div class="f_p_item">
+                    <div class="f_p_img">
+                         {% comment %}{% for img in all_images %}
+                             {% if img.item.id == category.id and img.position == 1  %}
+                                 <a href="{{ category.id }}"><img class="img-fluid" style="height: 200px; display: block; margin: 0 auto;" src="{{ img.file.url }}"></a>
+                             {% endif %}
+                        {% endfor %}{% endcomment %}
+                    </div>
+                    <div>
+                        <h2 class = "title1" style="text-align: center"><a href="category/{{ category.folder }}">{{  category.name   }}</a></h2>
+                    </div>
+                </div>
+            </div>
+
+            {% endfor %}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
