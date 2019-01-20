@@ -1,7 +1,9 @@
 from django.db import models
+from django.template.defaultfilters import slugify
 
+# TODO property!
 
-class Items(models.Model):
+class Item(models.Model):
     title = models.CharField(max_length=150)
     text = models.CharField(max_length=1000)
     is_enabled = models.BooleanField(default=True)
@@ -11,9 +13,23 @@ class Items(models.Model):
     count = models.IntegerField(default=0)
     date = models.DateField(auto_now_add=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
+    # TODO ПРОДУМАТЬ СЛАГ
+    slug = models.SlugField(max_length=100)
+
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        super(Item, self).save(*args, **kwargs)
 
     def __str__(self):
         return self.title
+
+
+class Brand(models.Model):
+    name = models.CharField(max_length=30)
+    img = models.ImageField(upload_to='brand')
+
+    def __str__(self):
+        return self.name
 
 
 class Category(models.Model):
@@ -24,11 +40,27 @@ class Category(models.Model):
         return self.name
 
 
-class ItemAttribute(models.Model):
-    item = models.ForeignKey('Items', on_delete=models.SET_NULL, null=True)
-    attr = models.ForeignKey('Atribute',
+class FilterName(models.Model):
+    name = models.CharField(max_length=50)
+    category = models.ForeignKey('Category', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return str(self.category) + " - " + str(self.name)
+
+
+class FilterDetail(models.Model):
+    name = models.CharField(max_length=30)
+    filter = models.ForeignKey('FilterName', on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.name
+
+
+class ItemDetail(models.Model):
+    item = models.ForeignKey('Item', on_delete=models.SET_NULL, null=True)
+    attr = models.ForeignKey('FilterDetail',
                              on_delete=models.SET_NULL,
-                             null=True,)
+                             null=True, )
     value = models.CharField(max_length=30)
 
     class Meta:
@@ -38,16 +70,9 @@ class ItemAttribute(models.Model):
         return str(self.item) + " - " + str(self.attr)
 
 
-class Atribute(models.Model):
-    name = models.CharField(max_length=50)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.category) + " - " + str(self.name)
-
-
 class Image(models.Model):
-    item = models.ForeignKey('Items', on_delete=models.CASCADE)
+    # TODO оптимизация картинки для отображения
+    item = models.ForeignKey('Item', on_delete=models.CASCADE)
     position = models.IntegerField()
     file = models.ImageField(upload_to='media')
 

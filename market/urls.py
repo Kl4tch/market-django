@@ -23,8 +23,8 @@ urlpatterns = [
     path('', views.category),
     path('index', views.index, name='main2'),
     path('test', views.test, name='test'),
-    path('<int:iditem>', views.detail, name='detail'),
     path('category/<str:category>', views.products),
+    path('<str:slug>/<int:id>', views.detail),
 ]
 
 
