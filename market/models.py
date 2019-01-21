@@ -1,7 +1,10 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-# TODO property!
+# TODO название property!
+# TODO base с датами
+# TODO offer
+
 
 class Item(models.Model):
     title = models.CharField(max_length=150)
@@ -15,6 +18,7 @@ class Item(models.Model):
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     # TODO ПРОДУМАТЬ СЛАГ
     slug = models.SlugField(max_length=100)
+    brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True)
 
     def save(self, *args, **kwargs):
         self.slug = slugify(self.title)
@@ -34,7 +38,9 @@ class Brand(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
+    # TODO загрузка картинок по категориям
     folder = models.CharField(max_length=20)
+    img = models.ImageField(upload_to='category')
 
     def __str__(self):
         return self.name

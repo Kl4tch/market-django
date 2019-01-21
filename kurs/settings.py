@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'user.apps.UserConfig',
     'market.apps.MarketConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -126,3 +127,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
 
 STATIC_URL = '/static/'
+
+# TODO ШТААА VK
+VK_CLIENT_ID = "6827262" # client_id в моем учебном приложении
+VK_CLIENT_SECRET = "RSSPAHNDmhakmX9jakv0" # client_secret в моем учебном приложении

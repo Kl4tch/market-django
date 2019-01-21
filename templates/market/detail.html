@@ -11,6 +11,13 @@
       <div class="row col-sm-1 col-md-6 col-lg-5 col-xl-4" style="margin-left: 50px">
           {{ item.text }}
       </div>
+
+      {% for comment in comments%}
+
+          {{ comment.user }} говорит: {{ comment.text }} в {{ comment.date }}
+          <br>
+      {% endfor %}
+
       </div>
     </div>
 

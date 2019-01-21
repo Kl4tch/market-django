@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import *
-import time
+from user.models import Comment
 
 
 # Create your views here.
@@ -15,8 +15,15 @@ def test(request):
 def detail(request, slug, id):
     item = get_object_or_404(Item, id=id, slug=slug)
     images = Image.objects.filter(item__in=Item.objects.filter(id=id))
+    comments = Comment.objects.filter(item=id)
 
-    return render(request, 'market/detail.html', {'item': item, 'images': images })
+    context = {
+        'item': item,
+        'images': images,
+        'comments': comments,
+    }
+
+    return render(request, 'market/detail.html', context)
 
 
 def products(request, category):
@@ -29,7 +36,8 @@ def products(request, category):
     context = {'all_items': all_items,
                'all_images': all_images,
                'filterNames': filterName,
-               'filters': filters, }
+               'filters': filters,
+               }
 
     return render(request, 'market/products.html', context)
 
