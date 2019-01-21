@@ -13,9 +13,16 @@
       </div>
 
       {% for comment in comments%}
-
-          {{ comment.user }} говорит: {{ comment.text }} в {{ comment.date }}
-          <br>
+          {% if comment.reply == 0 %}
+              <br>{{ comment.user }} говорит: {{ comment.text }} в {{ comment.date }}
+              <br>
+              {% for replyComment in comments%}
+                  {% if replyComment.reply == comment.id %}
+                    &nbsp {{ replyComment.user }} говорит: {{ replyComment.text }} в {{ replyComment.date }}
+                    <br>
+                  {% endif %}
+              {% endfor %}
+          {% endif %}
       {% endfor %}
 
       </div>

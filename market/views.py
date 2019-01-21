@@ -15,7 +15,7 @@ def test(request):
 def detail(request, slug, id):
     item = get_object_or_404(Item, id=id, slug=slug)
     images = Image.objects.filter(item__in=Item.objects.filter(id=id))
-    comments = Comment.objects.filter(item=id)
+    comments = Comment.objects.filter(item=id).order_by('-date')
 
     context = {
         'item': item,
