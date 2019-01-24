@@ -37,3 +37,9 @@ class Comment(models.Model):
 
     def __str__(self):
         return str(self.item) + " - " + str(self.user)
+
+
+class Cart(models.Model):
+    item = models.ForeignKey('market.Item', on_delete=models.CASCADE)
+    user = models.ForeignKey('Profile', on_delete=models.CASCADE)
+    quantity = models.IntegerField()

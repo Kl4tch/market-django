@@ -1,4 +1,5 @@
 import requests
+from django.shortcuts import render
 from django.http import HttpResponseRedirect, JsonResponse
 from django.conf import settings
 from .models import *
@@ -13,6 +14,7 @@ def get_credential(request):
 
 # api/token/ Получение access_token
 def get_token(request):
+    created = 0
     if request.method == 'GET':
         redirect_url = 'http://127.0.0.1:8000/user/token/'
         code = request.GET.get("code")
@@ -35,7 +37,15 @@ def get_token(request):
             defaults=dict(
                 first_name=first_name,
                 last_name=last_name,
-                access_token=access_token
+                access_token=access_token,
             )
         )
-    return JsonResponse({})
+
+        profile = Profile.objects.get(access_token=profile.access_token)
+        request.session['access_token'] = profile.access_token
+
+        context = {
+            'user': profile,
+        }
+
+        return render(request, 'market/user/user.html', context)

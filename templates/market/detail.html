@@ -1,5 +1,5 @@
 {% extends 'market/base.html' %}
-
+{#TODO ТАБ характеристик + корзина #}
 {% block content %}
     <div class="container">
       <div class="row">
@@ -8,8 +8,22 @@
                   <img class="img-fluid" style="height: 200px" src="{{ image.file.url }}">
               {% endfor %}
           </div>
+            <a href="add">В КОРЗИНУ</a>
       <div class="row col-sm-1 col-md-6 col-lg-5 col-xl-4" style="margin-left: 50px">
           {{ item.text }}
+          <br>ПОДРОБНОСТИ:<br>
+          {% for filter in filterName %}
+              {{ filter.name }}
+          {% endfor %}
+
+      {# TODO продумать про ненужные атрибуты #}
+          {% for detail in item_detail %}
+              {% if not detail.value  %}
+                {{ detail.attr.name  }}
+                  {% else %}
+                  {{ detail.value }}
+              {% endif %}
+          {% endfor %}
       </div>
 
       {% for comment in comments%}

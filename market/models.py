@@ -1,7 +1,7 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-# TODO название property!
+# TODO название property! ProductAttributeValue
 # TODO base с датами
 # TODO offer
 
@@ -67,7 +67,7 @@ class ItemDetail(models.Model):
     attr = models.ForeignKey('FilterDetail',
                              on_delete=models.SET_NULL,
                              null=True, )
-    value = models.CharField(max_length=30)
+    value = models.CharField(max_length=30, blank=True)
 
     class Meta:
         unique_together = (('attr', 'item'),)

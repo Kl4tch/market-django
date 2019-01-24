@@ -16,14 +16,26 @@ def detail(request, slug, id):
     item = get_object_or_404(Item, id=id, slug=slug)
     images = Image.objects.filter(item__in=Item.objects.filter(id=id))
     comments = Comment.objects.filter(item=id).order_by('-date')
+    filter_name = FilterName.objects.filter(category=item.category)
+    item_detail = ItemDetail.objects.filter(item=item.id)
+
+    def _sort_comments(id):
+        _sort_comments()
 
     context = {
         'item': item,
         'images': images,
         'comments': comments,
+        'filterName': filter_name,
+        'item_detail': item_detail,
     }
 
     return render(request, 'market/detail.html', context)
+
+
+def favorite(request, slug, id):
+    selected = get_object_or_404(Item, id=id, slug=slug)
+    return render(request)
 
 
 def products(request, category):
@@ -33,11 +45,12 @@ def products(request, category):
     filters = FilterDetail.objects.all()
     filterName = FilterName.objects.filter(category__in=Category.objects.filter(folder=category))
 
-    context = {'all_items': all_items,
-               'all_images': all_images,
-               'filterNames': filterName,
-               'filters': filters,
-               }
+    context = {
+        'all_items': all_items,
+        'all_images': all_images,
+        'filterNames': filterName,
+        'filters': filters,
+    }
 
     return render(request, 'market/products.html', context)
 
