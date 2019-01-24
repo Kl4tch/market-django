@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404
 from .models import *
-from user.models import Comment
+from user.models import Comment, Profile, Cart
 
 
 # Create your views here.
@@ -19,8 +19,8 @@ def detail(request, slug, id):
     filter_name = FilterName.objects.filter(category=item.category)
     item_detail = ItemDetail.objects.filter(item=item.id)
 
-    def _sort_comments(id):
-        _sort_comments()
+    # def _sort_comments(id):
+    #     _sort_comments()
 
     context = {
         'item': item,
@@ -30,12 +30,26 @@ def detail(request, slug, id):
         'item_detail': item_detail,
     }
 
-    return render(request, 'market/detail.html', context)
+    return render(request, 'market/comments.html', context)
 
 
-def favorite(request, slug, id):
+def add(request, slug, id):
     selected = get_object_or_404(Item, id=id, slug=slug)
-    return render(request)
+
+    try:
+        token = request.session['access_token']
+        profile = Profile.objects.get(access_token=token)
+
+        Cart.objects.create(item=selected, user=profile, quantity=1)
+
+        context = {
+            'user': profile,
+        }
+
+        return render(request, 'market/user/user.html', context)
+
+    except ():
+        return render(request, 'market/categories.html')
 
 
 def products(request, category):

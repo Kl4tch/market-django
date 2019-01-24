@@ -128,6 +128,5 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-# TODO ШТААА VK
-VK_CLIENT_ID = "6827262" # client_id в моем учебном приложении
-VK_CLIENT_SECRET = "RSSPAHNDmhakmX9jakv0" # client_secret в моем учебном приложении
+VK_CLIENT_ID = "6827262"
+VK_CLIENT_SECRET = "RSSPAHNDmhakmX9jakv0"

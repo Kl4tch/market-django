@@ -8,7 +8,7 @@
                   <img class="img-fluid" style="height: 200px" src="{{ image.file.url }}">
               {% endfor %}
           </div>
-            <a href="add">В КОРЗИНУ</a>
+            <a href="/{{ item.slug }}/{{ item.id }}/add">В КОРЗИНУ</a>
       <div class="row col-sm-1 col-md-6 col-lg-5 col-xl-4" style="margin-left: 50px">
           {{ item.text }}
           <br>ПОДРОБНОСТИ:<br>
@@ -26,22 +26,10 @@
           {% endfor %}
       </div>
 
-      {% for comment in comments%}
-          {% if comment.reply == 0 %}
-              <br>{{ comment.user }} говорит: {{ comment.text }} в {{ comment.date }}
-              <br>
-              {% for replyComment in comments%}
-                  {% if replyComment.reply == comment.id %}
-                    &nbsp {{ replyComment.user }} говорит: {{ replyComment.text }} в {{ replyComment.date }}
-                    <br>
-                  {% endif %}
-              {% endfor %}
-          {% endif %}
-      {% endfor %}
+      {% block commentsBlock %} {% endblock %}
 
       </div>
     </div>
 
-
-
 {% endblock %}
+

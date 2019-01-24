@@ -1,0 +1,30 @@
+{% extends 'market/detail.html' %}
+
+{% block commentsBlock %}
+    {% if var != 6 %}
+        <div>fdsfdsf</div>
+        {% include "market/comments.html" with var=6 %}
+
+        {% else %}
+            <div>last</div>
+    {% endif%}
+{% comment %}    {% for comment in comments%}
+      {% if comment.reply == 0 %}
+          <br>{{ comment.user }} говорит: {{ comment.text }} в {{ comment.date }}
+          <br>
+          {% for replyComment in comments%}
+              {% if replyComment.reply == comment.id %}
+                &nbsp {{ replyComment.user }} говорит: {{ replyComment.text }} в {{ replyComment.date }}
+                <br>
+              {% endif %}
+          {% endfor %}
+      {% endif %}
+    {% endfor %}{% endcomment %}
+
+
+        {% comment %}{% with a = (a + 1) %}
+        {% endwith %}{% endcomment %}
+
+
+
+{% endblock commentsBlock %}
