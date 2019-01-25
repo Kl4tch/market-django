@@ -1,8 +1,9 @@
 import requests
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponseRedirect, JsonResponse
 from django.conf import settings
 from .models import *
+from .views import main
 
 
 def get_credential(request):
@@ -48,4 +49,4 @@ def get_token(request):
             'user': profile,
         }
 
-        return render(request, 'market/user/user.html', context)
+        return redirect(main)

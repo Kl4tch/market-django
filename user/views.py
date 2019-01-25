@@ -1,5 +1,5 @@
-from django.shortcuts import render
-from user.models import Profile
+from django.shortcuts import render, redirect
+from user.models import Profile, Cart
 
 
 def main(request):
@@ -7,12 +7,23 @@ def main(request):
     try:
         token = request.session['access_token']
         profile = Profile.objects.get(access_token=token)
+        items = []
 
-        context = {
-            'user': profile,
-        }
+        try:
+            items = Cart.objects.filter(user=profile)
 
-        return render(request, 'market/user/user.html', context)
+        finally:
+            context = {
+                'user': profile,
+                'items': items,
+            }
 
-    except ():
+            return render(request, 'market/user/user.html', context)
+
+    except:
         return render(request, 'market/user/user.html')
+
+
+def logout(request):
+    request.session['access_token'] = None
+    return redirect(main)

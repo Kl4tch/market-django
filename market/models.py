@@ -84,3 +84,5 @@ class Image(models.Model):
 
     def __str__(self):
         return str(self.item) + " - " + str(self.position)
+
+

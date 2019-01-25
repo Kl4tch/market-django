@@ -1,10 +1,20 @@
 {% extends 'market/base.html' %}
 
 {% block content %}
-    Тест
     <br>
     {{ user.first_name }} {{ user.last_name }}
     <br>
     <a href="get">VK</a>
-    <a href="token">Токен</a>
+    <br>
+    <a href="logout">Выход</a>
+
+    <br><br>
+    КОРЗИНА:<br>
+    {% for item in items %}
+        {{ item.item.title  }}   <input type="number"> шт.
+        <br>
+    {% endfor %}
+
+    <br>
+    <a href="apply" class="btn-success">Подтвердить</a>
 {% endblock %}

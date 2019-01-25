@@ -83,7 +83,7 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'USER': 'root',
-        'NAME' : 'market',
+        'NAME': 'market',
         'HOST': 'localhost',
         'PORT': '3306',
     }

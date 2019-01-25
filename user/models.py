@@ -36,10 +36,14 @@ class Comment(models.Model):
     date = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
-        return str(self.item) + " - " + str(self.user)
+        return str(self.id) + ' - ' + str(self.user) + ' reply on ' + str(self.reply)
+        # return str(self.item) + " - " + str(self.user)
 
 
 class Cart(models.Model):
     item = models.ForeignKey('market.Item', on_delete=models.CASCADE)
     user = models.ForeignKey('Profile', on_delete=models.CASCADE)
     quantity = models.IntegerField()
+
+    def __str__(self):
+        return str(self.user.id) + ' - ' + str(self.item.title)

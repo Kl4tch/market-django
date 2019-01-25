@@ -7,8 +7,8 @@
               {% for image in images%}
                   <img class="img-fluid" style="height: 200px" src="{{ image.file.url }}">
               {% endfor %}
+              <a href="/{{ item.slug }}/{{ item.id }}/add" class="btn btn-outline-info">В КОРЗИНУ</a>
           </div>
-            <a href="/{{ item.slug }}/{{ item.id }}/add">В КОРЗИНУ</a>
       <div class="row col-sm-1 col-md-6 col-lg-5 col-xl-4" style="margin-left: 50px">
           {{ item.text }}
           <br>ПОДРОБНОСТИ:<br>
@@ -26,7 +26,11 @@
           {% endfor %}
       </div>
 
-      {% block commentsBlock %} {% endblock %}
+      <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">
+          {% include 'market/comments.html' %}
+      </div>
+
+
 
       </div>
     </div>

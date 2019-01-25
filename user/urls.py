@@ -15,10 +15,11 @@ Including another URLconf
 """
 from django.urls import path
 from .viewVK import get_credential, get_token
-from .views import main
+from .views import main, logout
 
 urlpatterns = [
     path('get', get_credential),
     path('token/', get_token),
     path('', main),
+    path('logout', logout)
 ]

@@ -1,6 +1,7 @@
-from django.shortcuts import render, get_object_or_404, get_list_or_404
+from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from .models import *
 from user.models import Comment, Profile, Cart
+from user.views import main
 
 
 # Create your views here.
@@ -28,9 +29,10 @@ def detail(request, slug, id):
         'comments': comments,
         'filterName': filter_name,
         'item_detail': item_detail,
+        'var': 0,
     }
 
-    return render(request, 'market/comments.html', context)
+    return render(request, 'market/detail.html', context)
 
 
 def add(request, slug, id):
@@ -46,10 +48,10 @@ def add(request, slug, id):
             'user': profile,
         }
 
-        return render(request, 'market/user/user.html', context)
+        return redirect(main)
 
-    except ():
-        return render(request, 'market/categories.html')
+    except:
+        return redirect('/')
 
 
 def products(request, category):
@@ -73,3 +75,7 @@ def category(request):
     categories = get_list_or_404(Category)
 
     return render(request, 'market/categories.html', {'categories': categories})
+
+
+def search(request):
+    return render(request, 'market/search.html')
