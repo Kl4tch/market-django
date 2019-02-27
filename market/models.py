@@ -1,9 +1,9 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-# TODO название property! ProductAttributeValue
 # TODO base с датами
 # TODO offer
+# TODO посты
 
 
 class Item(models.Model):
@@ -12,7 +12,7 @@ class Item(models.Model):
     is_enabled = models.BooleanField(default=True)
     price = models.IntegerField()
     viewed = models.IntegerField()
-    rate = models.DecimalField(max_digits=2, decimal_places=2)
+    rate = models.DecimalField(max_digits=2, decimal_places=1)
     count = models.IntegerField(default=0)
     date = models.DateField(auto_now_add=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
@@ -20,12 +20,12 @@ class Item(models.Model):
     slug = models.SlugField(max_length=100)
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True)
 
-    def save(self, *args, **kwargs):
-        self.slug = slugify(self.title)
-        super(Item, self).save(*args, **kwargs)
-
     def __str__(self):
         return self.title
+
+    class Meta:
+        verbose_name = "Товар"
+        verbose_name_plural = "Товары"
 
 
 class Brand(models.Model):
@@ -34,6 +34,10 @@ class Brand(models.Model):
 
     def __str__(self):
         return self.name
+
+    class Meta:
+        verbose_name = "Производитель"
+        verbose_name_plural = "Производители"
 
 
 class Category(models.Model):
@@ -45,6 +49,10 @@ class Category(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        verbose_name = "Категория"
+        verbose_name_plural = "Категории"
+
 
 class FilterName(models.Model):
     name = models.CharField(max_length=50)
@@ -53,6 +61,10 @@ class FilterName(models.Model):
     def __str__(self):
         return str(self.category) + " - " + str(self.name)
 
+    class Meta:
+        verbose_name = "Атрибут  категории"
+        verbose_name_plural = "Атрибуты категории"
+
 
 class FilterDetail(models.Model):
     name = models.CharField(max_length=30)
@@ -60,6 +72,8 @@ class FilterDetail(models.Model):
 
     def __str__(self):
         return self.name
+
+# TODO название property! ProductAttributeValue
 
 
 class ItemDetail(models.Model):
@@ -85,4 +99,7 @@ class Image(models.Model):
     def __str__(self):
         return str(self.item) + " - " + str(self.position)
 
+    class Meta:
+        verbose_name = "Изображение"
+        verbose_name_plural = "Изображения"
 

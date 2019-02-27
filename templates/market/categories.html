@@ -8,14 +8,12 @@
 
             <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4" style="margin-bottom: 20px;">
                 <div class="f_p_item">
-                    <div class="f_p_img">
+                    <div class="s_product_img" style="height: 200px;">
                         <a href="category/{{ category.folder }}">
-                            <img class="img-fluid" style="height: 200px; display: block; margin: 0 auto;" src="{{ category.img.url }}"></a>
-                         {% comment %}{% for img in all_images %}
-                             {% if img.item.id == category.id and img.position == 1  %}
-                                 <a href="{{ category.id }}"><img class="img-fluid" style="height: 200px; display: block; margin: 0 auto;" src="{{ img.file.url }}"></a>
-                             {% endif %}
-                        {% endfor %}{% endcomment %}
+                            <img class="img-fluid"
+                                 style="max-height: 200px;display: block; margin: 0 auto;"
+                                 src="{{ category.img.url }}">
+                        </a>
                     </div>
                     <div>
                         <h2 class = "title1" style="text-align: center"><a href="category/{{ category.folder }}">{{  category.name   }}</a></h2>

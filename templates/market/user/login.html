@@ -1,0 +1,27 @@
+{% extends 'market/base.html' %}
+
+{% block content %}
+    <a href="get">VK</a>
+    <br>
+    <div class="form-section">
+        <h2>Авторизация</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit" class="btn-success">Войти</button>
+        </form>
+
+        <div class="form-section">
+        <h2>Авторизация2</h2>
+        <form action="login.html" class="form-group">
+            <p>Телефон: <input type="text" name="phone"></p>
+            <p>Пароль: <input type="password" name="password"></p>
+
+            <p><input type="submit"></p>
+        </form>
+        </div>
+
+    </div>
+    <br>
+
+{% endblock %}

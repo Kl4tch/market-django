@@ -33,7 +33,7 @@ def get_token(request):
         first_name = user_info['response'][0]['first_name']
         last_name = user_info['response'][0]['last_name']
 
-        profile, created = Profile.objects.get_or_create(
+        profile, created = User.objects.get_or_create(
             vk_id=auth_response["user_id"],
             defaults=dict(
                 first_name=first_name,
@@ -42,7 +42,7 @@ def get_token(request):
             )
         )
 
-        profile = Profile.objects.get(access_token=profile.access_token)
+        profile = User.objects.get(access_token=profile.access_token)
         request.session['access_token'] = profile.access_token
 
         context = {

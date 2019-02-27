@@ -1,7 +1,8 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from .models import *
-from user.models import Comment, Profile, Cart
+from user.models import Comment, User, Cart
 from user.views import main
+from django.http import JsonResponse
 
 
 # Create your views here.
@@ -29,7 +30,7 @@ def detail(request, slug, id):
         'comments': comments,
         'filterName': filter_name,
         'item_detail': item_detail,
-        'var': 0,
+        'var': None,
     }
 
     return render(request, 'market/detail.html', context)
@@ -40,7 +41,7 @@ def add(request, slug, id):
 
     try:
         token = request.session['access_token']
-        profile = Profile.objects.get(access_token=token)
+        profile = User.objects.get(access_token=token)
 
         Cart.objects.create(item=selected, user=profile, quantity=1)
 
@@ -49,6 +50,24 @@ def add(request, slug, id):
         }
 
         return redirect(main)
+
+    except:
+        return redirect('/')
+
+
+def add_review(request, slug, id):
+
+    if request.method == 'POST':
+        dat = request.POST.get('text', None)
+        return JsonResponse(dat)
+
+    selected = get_object_or_404(Item, id=id, slug=slug)
+
+    try:
+        token = request.session['access_token']
+        profile = User.objects.get(access_token=token)
+
+        Comment.objects.create(item=selected, user=profile, rate='5', text="TESTrrrrrr")
 
     except:
         return redirect('/')

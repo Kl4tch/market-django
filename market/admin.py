@@ -47,7 +47,7 @@ class ItemAdmin(admin.ModelAdmin):
     list_display = ('title', 'is_enabled')
     inlines = [Imageline, ItemDetailLine, ]
     search_fields = ['title', ]
-    list_per_page = 5
+    list_per_page = 20
 
 
 admin.site.register(Item, ItemAdmin)

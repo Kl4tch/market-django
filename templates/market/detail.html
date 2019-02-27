@@ -3,12 +3,50 @@
 {% block content %}
     <div class="container">
       <div class="row">
+
+
+        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" style="height: 500px; width: 500px">
+        <!-- Индикаторы -->
+        <ol class="carousel-indicators" >
+            {% if images.count > 1 %}
+                {% for image in images%}
+                    <li data-target="#carousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %} class="active" {% endif %}></li>
+                {% endfor %}
+            {% endif %}
+        </ol>
+        <div class="carousel-inner">
+
+            {% for image in images%}
+
+                {% if forloop.first %}
+                    <div class="active carousel-item ">
+                {% else %}
+                    <div class="carousel-item ">
+                {% endif %}
+
+                    <img class="img-fluid" src="{{ image.file.url }}" style="height: 500px;display: block; margin: 0 auto;">
+                </div>
+
+            {% endfor %}
+
+        </div>
+        {% if images.count > 1 %}
+            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only">Предыдущий</span>
+            </a>
+            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Следующий</span>
+            </a>
+        {% endif %}
+    </div>
+
+
           <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">
-              {% for image in images%}
-                  <img class="img-fluid" style="height: 200px" src="{{ image.file.url }}">
-              {% endfor %}
-              <a href="/{{ item.slug }}/{{ item.id }}/add" class="btn btn-outline-info">В КОРЗИНУ</a>
+            <button class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_cart">В корзину</button>
           </div>
+
       <div class="row col-sm-1 col-md-6 col-lg-5 col-xl-4" style="margin-left: 50px">
           {{ item.text }}
           <br>ПОДРОБНОСТИ:<br>
@@ -27,6 +65,26 @@
       </div>
 
       <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">
+          <div class="form-group">
+              <label for="usr">Name:</label>
+              <div class="col-md-12">
+
+                  <form method="POST">
+                      {% csrf_token %}
+                      {{ form.as_p }}
+
+                      <div class="form-group">
+                        <textarea class="form-control" name="message" id="message" rows="3" placeholder="Отзыв"></textarea>
+                      </div>
+                  <button type="submit" class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_review">Оставить отзыв</button>
+
+                  </form>
+
+                </div>
+          </div>
+
+          <br>
+
           {% include 'market/comments.html' %}
       </div>
 
@@ -34,6 +92,27 @@
 
       </div>
     </div>
+
+  <script>
+        $("#add_cart").click(function () {
+          $.ajax({
+              url:"add",
+              method:"GET"
+          })
+        });
+
+
+        $("#add_review").click(function () {
+          text23 = $('#message').val();
+
+          $.ajax({
+              url: "add_review",
+              //method:"GET",
+              type: "post",
+              data: {text: 'TestPass'}
+          })
+        });
+  </script>
 
 {% endblock %}
 

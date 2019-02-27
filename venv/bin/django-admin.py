@@ -1,4 +1,4 @@
-#!/home/timur/PycharmProjects/kurs/venv/bin/python
+#!/Users/timur/Desktop/kurs/venv/bin/python
 from django.core import management
 
 if __name__ == "__main__":

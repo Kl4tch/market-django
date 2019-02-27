@@ -2,13 +2,6 @@
 
 {% block content %}
     <br>
-    {% if messages %}
-        {% for message in messages %}
-            <div class="alert alert-success">
-                {{ message }}
-            </div>
-        {% endfor %}
-    {% endif %}
     {{ user.first_name }} {{ user.last_name }}
     <br>
     <a href="get">VK</a>
@@ -24,4 +17,15 @@
 
     <br>
     <a href="apply" class="btn-success">Подтвердить</a>
+
+    <div class="form-section">
+        <h2>Регистрация</h2>
+        <form method="POST">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn-success">Зарегистрироваться</button>
+        </form>
+    </div>
+    <br>
+
 {% endblock %}

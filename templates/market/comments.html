@@ -1,7 +1,24 @@
+{% load static %}
+
+
 {% for comment in comments%}
   {% if comment.reply == var %}
-      <br>  id = {{ comment.id }} {{ comment.user }} : {{ comment.text }} в {{ comment.date }}<br>
-       <a href="reply/id={{ comment.id }}">Ответить</a>
-      {% include "market/comments.html" with var=comment.id %}
+      {% if comment.reply != None  %}
+          <div>
+              <div style="margin-left: 50px">
+              {{ comment.user }} : {{ comment.text }} в {{ comment.date }}
+                  </div>
+                <a href="reply/id={{ comment.id }}">Ответить</a><br>
+          </div>
+          {% else %}
+          {{ comment.user }} : {{ comment.text }} в {{ comment.date }}
+           <a href="reply/id={{ comment.id }}">Ответить</a><br>
+      {% endif %}
+      <br>
+
+      {% include "market/comments.html" with var=comment %}
   {% endif %}
 {% endfor %}
+
+
+
