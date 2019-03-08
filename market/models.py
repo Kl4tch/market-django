@@ -1,9 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
 
-# TODO base с датами
-# TODO offer
-# TODO посты
 
 
 class Item(models.Model):
@@ -16,7 +13,6 @@ class Item(models.Model):
     count = models.IntegerField(default=0)
     date = models.DateField(auto_now_add=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
-    # TODO ПРОДУМАТЬ СЛАГ
     slug = models.SlugField(max_length=100)
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True)
 
@@ -42,7 +38,6 @@ class Brand(models.Model):
 
 class Category(models.Model):
     name = models.CharField(max_length=50)
-    # TODO загрузка картинок по категориям
     folder = models.CharField(max_length=20)
     img = models.ImageField(upload_to='category')
 
@@ -91,7 +86,6 @@ class ItemDetail(models.Model):
 
 
 class Image(models.Model):
-    # TODO оптимизация картинки для отображения
     item = models.ForeignKey('Item', on_delete=models.CASCADE)
     position = models.IntegerField()
     file = models.ImageField(upload_to='media')

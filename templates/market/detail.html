@@ -1,52 +1,67 @@
 {% extends 'market/base.html' %}
 {#TODO ТАБ характеристик + корзина #}
+
+{% block head %}
+    {% load static %}
+
+    <!-- CSS STYLE-->
+    <link rel="stylesheet" type="text/css" href="{% static 'css/xzoom.css' %}" media="all" />
+    <link rel="stylesheet" type="text/css" href="{% static 'css/magnific-popup.css' %}" media="all" />
+
+    <!-- XZOOM JQUERY PLUGIN  -->
+    <script type="text/javascript" src="{% static 'js/xzoom.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/magnific-popup.js' %}"></script>
+
+
+
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/foundation.css' %}" />
+    <link rel="stylesheet" href="{% static 'css/demo.css' %}" />
+    <script src="{% static 'js/vendor/modernizr.js' %}"></script>
+    <script src="{% static 'js/vendor/jquery.js' %}"></script>
+  <!-- xzoom plugin here -->
+  <script type="text/javascript" src="{% static 'dist/xzoom.min.js' %}"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'css/xzoom.css' %}" media="all" />
+  <!-- hammer plugin here -->
+  <script type="text/javascript" src="{% static 'hammer.js/1.0.5/jquery.hammer.min.js' %}"></script>
+  <!--[if lt IE 9]><script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+  <link type="text/css" rel="stylesheet" media="all" href="{% static 'fancybox/source/jquery.fancybox.css' %}" />
+  <link type="text/css" rel="stylesheet" media="all" href="{% static 'magnific-popup/css/magnific-popup.css' %}" />
+  <script type="text/javascript" src="{% static 'fancybox/source/jquery.fancybox.js' %}"></script>
+  <script type="text/javascript" src="{% static 'magnific-popup/js/magnific-popup.js' %}"></script>
+
+
+{% endblock %}
+
 {% block content %}
     <div class="container">
       <div class="row">
 
 
-        <div id="carousel" class="carousel slide carousel-fade" data-ride="carousel" style="height: 500px; width: 500px">
-        <!-- Индикаторы -->
-        <ol class="carousel-indicators" >
-            {% if images.count > 1 %}
-                {% for image in images%}
-                    <li data-target="#carousel" data-slide-to="{{ forloop.counter0 }}" {% if forloop.first %} class="active" {% endif %}></li>
-                {% endfor %}
-            {% endif %}
-        </ol>
-        <div class="carousel-inner">
+    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
+      <div class="large-5 column">
+        <div class="xzoom-container">
+          <div class="xzoom-thumbs">
 
-            {% for image in images%}
+              {% for image in images%}
 
-                {% if forloop.first %}
-                    <div class="active carousel-item ">
-                {% else %}
-                    <div class="carousel-item ">
-                {% endif %}
+                  {% if forloop.first %}
+                    <img class="xzoom5" id="xzoom-magnific" src="{{ image.file.url }}" />
+                  {% endif %}
 
-                    <img class="img-fluid" src="{{ image.file.url }}" style="height: 500px;display: block; margin: 0 auto;">
-                </div>
+            <a href="{{ image.file.url }}">
+                <img class="xzoom-gallery5" width="80" src="{{ image.file.url }}">
+            </a>
 
-            {% endfor %}
-
+              {% endfor %}
+          </div>
         </div>
-        {% if images.count > 1 %}
-            <a class="carousel-control-prev" href="#carousel" role="button" data-slide="prev">
-                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                <span class="sr-only">Предыдущий</span>
-            </a>
-            <a class="carousel-control-next" href="#carousel" role="button" data-slide="next">
-                <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                <span class="sr-only">Следующий</span>
-            </a>
-        {% endif %}
+      </div>
     </div>
 
-
-          <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">
+           <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">
             <button class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_cart">В корзину</button>
           </div>
-
       <div class="row col-sm-1 col-md-6 col-lg-5 col-xl-4" style="margin-left: 50px">
           {{ item.text }}
           <br>ПОДРОБНОСТИ:<br>
@@ -112,7 +127,13 @@
               data: {text: 'TestPass'}
           })
         });
+
+        $(".xzoom, .xzoom-gallery").xzoom({tint: '#333', Xoffset: 15});
+
   </script>
+
+    <script src="{% static 'js/foundation.min.js' %}"></script>
+    <script src="{% static 'js/setup.js' %}"></script>
 
 {% endblock %}
 
