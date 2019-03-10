@@ -1,62 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="115ebf14-f7e6-4fb8-b4ea-9cae0f311c1c" name="Default" comment="Хз, на маке + слайдер 1 версия">
-      <change afterPath="$PROJECT_DIR$/.idea/vagrant.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/css/demo.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/css/foundation.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/css/magnific-popup.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/css/normalize.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/css/xzoom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/dist/xzoom.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/dist/xzoom.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/blank.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/fancybox_loading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/fancybox_loading@2x.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/fancybox_overlay.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/fancybox_sprite.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/fancybox_sprite@2x.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/helpers/fancybox_buttons.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/helpers/jquery.fancybox-buttons.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/helpers/jquery.fancybox-buttons.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/helpers/jquery.fancybox-media.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/helpers/jquery.fancybox-thumbs.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/helpers/jquery.fancybox-thumbs.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/jquery.fancybox.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/jquery.fancybox.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/fancybox/source/jquery.fancybox.pack.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/hammer.js/1.0.5/hammer.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/hammer.js/1.0.5/jquery.hammer.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/hammer.js/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/foundation.min.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/foundation/foundation.dropdown.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/foundation/foundation.interchange.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/foundation/foundation.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/foundation/foundation.reveal.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/magnific-popup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/setup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/vendor/fastclick.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/vendor/jquery.cookie.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/vendor/jquery.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/vendor/modernizr.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/vendor/placeholder.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/js/xzoom.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/magnific-popup/css/magnific-popup.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/market/static/magnific-popup/js/magnific-popup.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/media/test.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/media/xloading.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/market/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/0c27ebc6-e57b-45b6-ae39-039c92ed3758.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/83ad85f6-b28a-412c-bb80-ceaa16d7630d.xml" beforeDir="false" />
+    <list default="true" id="115ebf14-f7e6-4fb8-b4ea-9cae0f311c1c" name="Default" comment="">
+      <change afterPath="$PROJECT_DIR$/market/migrations/0004_auto_20190309_1940.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/market/migrations/0005_auto_20190309_1940.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/market/migrations/0006_auto_20190309_1948.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/market/migrations/0007_auto_20190310_1049.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/market/migrations/0008_auto_20190310_1049.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/market/migrations/0009_auto_20190310_1104.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/market/migrations/0010_auto_20190310_1208.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/db.sqlite3" beforeDir="false" afterPath="$PROJECT_DIR$/db.sqlite3" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/kurs/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/kurs/settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/market/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/market/admin.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/market/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/market/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/market/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/market/base.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/market/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/market/views.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/market/detail.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/market/detail.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/market/test/category.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/market/test/category.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/market/products.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/market/products.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -84,6 +45,21 @@
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
         <item name="db.sqlite3" type="feb32156:DbDataSourceImpl" />
       </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Django default" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Django default" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="Django default" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="90513b60:SqliteImplModel$Schema" />
+      </path>
     </expand>
     <select />
   </component>
@@ -95,11 +71,58 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="detail.html" pinned="false" current-in-tab="true">
+      <file leaf-file-name="detail.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/market/detail.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="418">
-              <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+            <state relative-caret-position="19">
+              <caret line="70" selection-start-line="70" selection-end-line="70" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/market/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="19">
+              <caret line="1" selection-start-line="1" selection-end-line="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="products.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/templates/market/products.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="836">
+              <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/market/views.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="381">
+              <caret line="96" column="13" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
+              <folding>
+                <element signature="e#0#81#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="apps.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/market/apps.py">
+          <provider selected="true" editor-type-id="text-editor" />
+        </entry>
+      </file>
+      <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/market/admin.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="419">
+              <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#32#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -116,7 +139,7 @@
       <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/templates/market/base.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-169">
+            <state relative-caret-position="57">
               <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="19" />
             </state>
           </provider>
@@ -140,7 +163,6 @@
       <find>stati</find>
       <find>media</find>
       <find>ima</find>
-      <find>date</find>
       <find>deb</find>
       <find>middle</find>
       <find>e</find>
@@ -154,6 +176,10 @@
       <find>var</find>
       <find>root</find>
       <find>static</find>
+      <find>deci</find>
+      <find>date</find>
+      <find>ImageField</find>
+      <find>item</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -189,18 +215,18 @@
         <option value="$PROJECT_DIR$/templates/market/user/login.html" />
         <option value="$PROJECT_DIR$/user/viewVK.py" />
         <option value="$PROJECT_DIR$/user/views.py" />
-        <option value="$PROJECT_DIR$/templates/market/products.html" />
         <option value="$PROJECT_DIR$/user/models.py" />
         <option value="$PROJECT_DIR$/templates/market/comments.html" />
         <option value="$PROJECT_DIR$/market/urls.py" />
-        <option value="$PROJECT_DIR$/market/views.py" />
         <option value="$PROJECT_DIR$/user/forms.py" />
         <option value="$PROJECT_DIR$/templates/market/test/category.html" />
-        <option value="$PROJECT_DIR$/market/admin.py" />
         <option value="$PROJECT_DIR$/kurs/settings.py" />
         <option value="$PROJECT_DIR$/templates/market/base.html" />
-        <option value="$PROJECT_DIR$/market/models.py" />
         <option value="$PROJECT_DIR$/templates/market/detail.html" />
+        <option value="$PROJECT_DIR$/market/views.py" />
+        <option value="$PROJECT_DIR$/templates/market/products.html" />
+        <option value="$PROJECT_DIR$/market/models.py" />
+        <option value="$PROJECT_DIR$/market/admin.py" />
       </list>
     </option>
   </component>
@@ -224,6 +250,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -244,15 +271,18 @@
             <path>
               <item name="kurs" type="b2602c69:ProjectViewProjectNode" />
               <item name="kurs" type="462c0819:PsiDirectoryNode" />
-              <item name="market" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
+              <item name="media" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kurs" type="b2602c69:ProjectViewProjectNode" />
               <item name="kurs" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="kurs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="kurs" type="462c0819:PsiDirectoryNode" />
+              <item name="templates" type="462c0819:PsiDirectoryNode" />
               <item name="market" type="462c0819:PsiDirectoryNode" />
-              <item name="static" type="462c0819:PsiDirectoryNode" />
-              <item name="dist" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="kurs" type="b2602c69:ProjectViewProjectNode" />
@@ -263,7 +293,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -286,19 +315,19 @@
     </option>
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/market/static" />
-      <recent name="$PROJECT_DIR$/market/static/css" />
-      <recent name="$PROJECT_DIR$/templates/market" />
-      <recent name="$PROJECT_DIR$/market/static/js" />
-      <recent name="$PROJECT_DIR$/templates/market/user" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/market/static/js" />
       <recent name="$PROJECT_DIR$/media/media" />
       <recent name="$PROJECT_DIR$/media" />
       <recent name="$PROJECT_DIR$/market/static/css" />
       <recent name="$PROJECT_DIR$/templates/market" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/market/static" />
+      <recent name="$PROJECT_DIR$/market/static/css" />
+      <recent name="$PROJECT_DIR$/templates/market" />
+      <recent name="$PROJECT_DIR$/market/static/js" />
+      <recent name="$PROJECT_DIR$/templates/market/user" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -447,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1551263562166</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Slider works">
+      <created>1552073567233</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1552073567233</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TodoView">
@@ -466,26 +502,26 @@
       <window_info anchor="bottom" id="TODO" order="7" weight="0.259375" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5005952" side_tool="true" weight="0.32873806" />
       <window_info anchor="bottom" id="Database Changes" order="10" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Version Control" order="9" weight="0.40625" />
+      <window_info active="true" anchor="bottom" id="Version Control" order="9" visible="true" weight="0.40625" />
       <window_info anchor="bottom" id="Python Console" order="13" weight="0.328125" />
-      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49940476" weight="0.19791667" />
-      <window_info anchor="bottom" id="Terminal" order="12" weight="0.30520833" />
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49894515" visible="true" weight="0.16027689" />
+      <window_info anchor="bottom" id="Run" order="3" sideWeight="0.49940476" weight="0.34791666" />
+      <window_info anchor="bottom" id="Terminal" order="12" weight="0.42291668" />
+      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.49894515" visible="true" weight="0.16187434" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="right" id="Database" order="4" visible="true" weight="0.16027689" />
-      <window_info anchor="bottom" id="Find" order="2" weight="0.328125" />
+      <window_info anchor="bottom" id="manage.py@kurs" order="14" weight="0.32916668" />
       <window_info anchor="right" id="SciView" internal_type="SLIDING" order="3" weight="0.3294702" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" sideWeight="0.5010548" side_tool="true" weight="0.13907285" />
-      <window_info anchor="bottom" id="Debug" order="4" weight="0.26906317" />
+      <window_info anchor="bottom" id="Debug" order="4" weight="0.26875" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="6" weight="0.4" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="manage.py@kurs" order="14" weight="0.32916668" />
       <window_info anchor="bottom" id="Message" order="1" />
       <window_info anchor="bottom" id="Cvs" order="5" weight="0.25" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.32805908" />
+      <window_info anchor="bottom" id="Find" order="2" weight="0.328125" />
       <window_info anchor="bottom" id="Concurrent Activities Diagram" order="0" weight="0.32911393" />
     </layout>
   </component>
@@ -522,6 +558,7 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
+    <option name="CHECK_NEW_TODO" value="false" />
     <MESSAGE value="Images 1-st work" />
     <MESSAGE value="Correct image" />
     <MESSAGE value="Product 1-st page" />
@@ -532,7 +569,8 @@
     <MESSAGE value="рекурсия попытка1" />
     <MESSAGE value="что-то работающее" />
     <MESSAGE value="Хз, на маке + слайдер 1 версия" />
-    <option name="LAST_COMMIT_MESSAGE" value="Хз, на маке + слайдер 1 версия" />
+    <MESSAGE value="Slider works" />
+    <option name="LAST_COMMIT_MESSAGE" value="Slider works" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -543,7 +581,7 @@
           </properties>
         </breakpoint>
       </default-breakpoints>
-      <option name="time" value="60" />
+      <option name="time" value="71" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="Python.DjangoServer">
@@ -553,7 +591,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/django/contrib/auth/base_user.py" />
     <entry file="file://$PROJECT_DIR$/user/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="456">
@@ -605,25 +642,11 @@
       </provider>
     </entry>
     <entry file="das://4fdbd2c0-2bac-4b7a-b827-d5e510c05b90/schema/main/table/user_cart" />
-    <entry file="file://$PROJECT_DIR$/user/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="741">
-          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
-        </state>
-      </provider>
-    </entry>
     <entry file="das://4fdbd2c0-2bac-4b7a-b827-d5e510c05b90/schema/main/table/user_comment" />
     <entry file="file://$PROJECT_DIR$/user/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="342">
           <caret line="24" lean-forward="true" selection-start-line="24" selection-end-line="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/market/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1121">
-          <caret line="63" column="20" selection-start-line="63" selection-start-column="20" selection-end-line="63" selection-end-column="20" />
         </state>
       </provider>
     </entry>
@@ -654,13 +677,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/market/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="741">
-          <caret line="40" column="31" selection-start-line="40" selection-start-column="31" selection-end-line="40" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/manage.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -670,9 +686,6 @@
           <caret line="10" column="11" lean-forward="true" selection-start-line="10" selection-start-column="11" selection-end-line="10" selection-end-column="11" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/market/apps.py">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/market/urls.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -685,21 +698,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="57">
           <caret line="8" column="28" selection-start-line="8" selection-start-column="28" selection-end-line="8" selection-end-column="28" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/user/apps.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/templates/market/products.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="38">
-          <caret line="2" column="3" selection-start-line="2" selection-start-column="3" selection-end-line="2" selection-end-column="3" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/kurs/settings.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -742,23 +745,14 @@
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/market/static/js/foundation/foundation.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#5#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
+      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/market/base.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-169">
+        <state relative-caret-position="57">
           <caret line="3" column="2" selection-start-line="3" selection-start-column="2" selection-end-line="3" selection-end-column="19" />
         </state>
       </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/market/static/css/demo.css">
-      <provider selected="true" editor-type-id="text-editor" />
     </entry>
     <entry file="file://$PROJECT_DIR$/market/static/market.css">
       <provider selected="true" editor-type-id="text-editor" />
@@ -773,17 +767,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/market/models.py">
+    <entry file="file://$PROJECT_DIR$/market/static/css/demo.css">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/user/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="248">
-          <caret line="70" column="47" lean-forward="true" selection-start-line="70" selection-start-column="47" selection-end-line="70" selection-end-column="47" />
+        <state relative-caret-position="20">
+          <caret line="41" column="9" selection-start-line="41" selection-start-column="9" selection-end-line="41" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/.idea/dataSources.xml">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/market/apps.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/market/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="381">
+          <caret line="96" column="13" selection-start-line="96" selection-start-column="13" selection-end-line="96" selection-end-column="13" />
+          <folding>
+            <element signature="e#0#81#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/templates/market/products.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="836">
+          <caret line="44" lean-forward="true" selection-start-line="44" selection-end-line="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/market/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="419">
+          <caret line="34" column="9" lean-forward="true" selection-start-line="34" selection-start-column="9" selection-end-line="34" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/templates/market/detail.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="22" column="24" selection-start-line="22" selection-start-column="24" selection-end-line="22" selection-end-column="24" />
+        <state relative-caret-position="19">
+          <caret line="70" selection-start-line="70" selection-end-line="70" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/market/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="19">
+          <caret line="1" selection-start-line="1" selection-end-line="1" />
         </state>
       </provider>
     </entry>

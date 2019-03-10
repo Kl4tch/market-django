@@ -69,7 +69,6 @@
               {{ filter.name }}
           {% endfor %}
 
-      {# TODO продумать про ненужные атрибуты #}
           {% for detail in item_detail %}
               {% if not detail.value  %}
                 {{ detail.attr.name  }}

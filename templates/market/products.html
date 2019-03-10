@@ -58,6 +58,10 @@
                         <h2 class = "title1" style="text-align: center"><a href="/{{ item.slug }}/{{ item.id }}/">{{  item.title   }}</a></h2>
                     </div>
                     <h5 style="margin-bottom: 20px;text-align: center">{{ item.price }} руб</h5>
+
+                    {% if item.oldPrice != None %}
+                        <h6 style="margin-bottom: 20px;text-align: center"><strike>{{ item.oldPrice }} руб</strike></h6>
+                    {% endif %}
                 </div>
             </div>
 

@@ -1,7 +1,13 @@
 from django.contrib import admin
 from .models import *
+from django.utils.safestring import mark_safe
+from django.db import models
+from django.contrib.admin.widgets import AdminFileWidget
+
 
 admin.site.register(Brand)
+admin.site.register(Discount)
+admin.site.register(DiscountItem)
 
 
 class Imageline(admin.StackedInline):
@@ -40,6 +46,7 @@ class ItemAdmin(admin.ModelAdmin):
     inlines = [Imageline, ItemDetailLine, ]
     search_fields = ['title', ]
     list_per_page = 20
+
 
 
 admin.site.register(Item, ItemAdmin)

@@ -80,11 +80,29 @@ def products(request, category):
     filters = FilterDetail.objects.all()
     filterName = FilterName.objects.filter(category__in=Category.objects.filter(folder=category))
 
+    discounts = DiscountItem.objects.all()
+
+    for ite in all_items:
+        ite.bonus = 10
+
+    for item in all_items:
+        disc = DiscountItem.objects.filter(item=item).last()
+
+        if disc is not None:
+            item.oldPrice = item.price
+
+            disc2 = float(disc.discount)
+            item.price = (item.price * (1.00 - disc2 * 0.01))
+
+        else:
+            item.oldPrice = None
+
     context = {
         'all_items': all_items,
         'all_images': all_images,
         'filterNames': filterName,
         'filters': filters,
+        'discounts': discounts,
     }
 
     return render(request, 'market/products.html', context)
