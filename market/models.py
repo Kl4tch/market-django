@@ -74,6 +74,9 @@ class DiscountItem(models.Model):
     item = models.ForeignKey('Item', on_delete=models.SET_NULL, null=True)
     discount = models.DecimalField(max_digits=4, decimal_places=2)
 
+    dateStart = models.DateField(blank=True, null=True)
+    dateEnd = models.DateField(blank=True, null=True)
+
     disc = models.ForeignKey('Discount', on_delete=models.CASCADE, null=True, blank=True)
 
 
@@ -82,7 +85,7 @@ class Discount(models.Model):
     name = models.CharField(max_length=100, null=True)
     dateStart = models.DateField(default=now())
     dateEnd = models.DateField(default=now())
-    img = models.ImageField(upload_to='discounts', null=True)
+    img = models.ImageField(upload_to='discounts', null=True, blank=True)
 
     def __str__(self):
         return "(" + str(self.dateStart) + ' - ' + str(self.dateEnd) + ")"

@@ -3,6 +3,10 @@ from .models import *
 from user.models import Comment, User, Cart
 from user.views import main
 from django.http import JsonResponse
+from django.utils.timezone import now
+import datetime
+
+
 
 
 # Create your views here.
@@ -82,20 +86,27 @@ def products(request, category):
 
     discounts = DiscountItem.objects.all()
 
-    for ite in all_items:
-        ite.bonus = 10
-
     for item in all_items:
-        disc = DiscountItem.objects.filter(item=item).last()
+        item_discounts = DiscountItem.objects.filter(item=item).order_by('-id')
 
-        if disc is not None:
-            item.oldPrice = item.price
+        for d in item_discounts:
+            if d.disc is None:
+                if d.dateStart is None:
+                    item.oldPrice = None
 
-            disc2 = float(disc.discount)
-            item.price = (item.price * (1.00 - disc2 * 0.01))
+                elif d.dateStart <= datetime.date.today() <= d.dateEnd:
+                    item.oldPrice = item.price
 
-        else:
-            item.oldPrice = None
+                    disc2 = float(d.discount)
+                    item.price = round(item.price * (1.00 - disc2 * 0.01))
+                    break
+            else:
+                if d.disc.dateStart <= datetime.date.today() <= d.disc.dateEnd:
+                    item.oldPrice = item.price
+
+                    disc2 = float(d.discount)
+                    item.price = round(item.price * (1.00 - disc2 * 0.01))
+                    break
 
     context = {
         'all_items': all_items,
