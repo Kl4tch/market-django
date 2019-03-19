@@ -103,10 +103,13 @@ def products(request, category):
             else:
                 if d.disc.dateStart <= datetime.date.today() <= d.disc.dateEnd:
                     item.oldPrice = item.price
+                    item.oldPrice = "{:,}".format(item.oldPrice)
 
                     disc2 = float(d.discount)
                     item.price = round(item.price * (1.00 - disc2 * 0.01))
                     break
+
+        item.price = "{:,}".format(item.price)
 
     context = {
         'all_items': all_items,
