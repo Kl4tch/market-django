@@ -1,15 +1,14 @@
 from django.db import models
-from django.utils.timezone import now
+from django.utils.text import slugify
+from scraper.models import AttributeValue
 
 
 class Item(models.Model):
     title = models.CharField(max_length=150)
-    text = models.CharField(max_length=1000)
+    text = models.CharField(max_length=1000, blank=True, null=True)
     is_enabled = models.BooleanField(default=True)
-    price = models.IntegerField()
-    viewed = models.IntegerField()
-    rate = models.DecimalField(max_digits=2, decimal_places=1)
-    count = models.IntegerField(default=0)
+    viewed = models.IntegerField(blank=True, null=True)
+    rate = models.DecimalField(max_digits=2, decimal_places=1, blank=True, null=True)
     date = models.DateField(auto_now_add=True)
     category = models.ForeignKey('Category', on_delete=models.CASCADE)
     slug = models.SlugField(max_length=100)
@@ -22,10 +21,16 @@ class Item(models.Model):
         verbose_name = "Товар"
         verbose_name_plural = "Товары"
 
+    def save(self, *args, **kwargs):
+        self.slug = slugify(self.title)
+        # small = rescale_image(self.image, width=100, height=100)
+        # self.image_small = SimpleUploadedFile(name, small_pic)
+        super(Item, self).save(*args, **kwargs)
+
 
 class Brand(models.Model):
     name = models.CharField(max_length=30)
-    img = models.ImageField(upload_to='brand')
+    img = models.ImageField(upload_to='brand', blank=True, null=True)
 
     def __str__(self):
         return self.name
@@ -48,65 +53,20 @@ class Category(models.Model):
         verbose_name_plural = "Категории"
 
 
-class FilterName(models.Model):
-    name = models.CharField(max_length=50)
-    category = models.ForeignKey('Category', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return str(self.category) + " - " + str(self.name)
-
-    class Meta:
-        verbose_name = "Атрибут  категории"
-        verbose_name_plural = "Атрибуты категории"
-
-
-class FilterDetail(models.Model):
-    name = models.CharField(max_length=30)
-    filter = models.ForeignKey('FilterName', on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.name
-
-# TODO название property! ProductAttributeValue
-
-
-class DiscountItem(models.Model):
-    item = models.ForeignKey('Item', on_delete=models.SET_NULL, null=True)
-    discount = models.DecimalField(max_digits=4, decimal_places=2)
-
-    dateStart = models.DateField(blank=True, null=True)
-    dateEnd = models.DateField(blank=True, null=True)
-
-    disc = models.ForeignKey('Discount', on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Discount(models.Model):
-    # TODO картинка для банера акции?
-    name = models.CharField(max_length=100, null=True)
-    dateStart = models.DateField(default=now())
-    dateEnd = models.DateField(default=now())
-    img = models.ImageField(upload_to='discounts', null=True, blank=True)
-
-    def __str__(self):
-        return "(" + str(self.dateStart) + ' - ' + str(self.dateEnd) + ")"
-
-    class Meta:
-        verbose_name = "Скидка"
-        verbose_name_plural = "Скидки"
-
-
 class ItemDetail(models.Model):
-    item = models.ForeignKey('Item', on_delete=models.SET_NULL, null=True)
-    attr = models.ForeignKey('FilterDetail',
-                             on_delete=models.SET_NULL,
-                             null=True, )
-    value = models.CharField(max_length=30, blank=True)
+    item = models.ForeignKey('Item', on_delete=models.CASCADE)
+    attr = models.ForeignKey('scraper.AttributeValue', on_delete=models.CASCADE)
 
-    class Meta:
-        unique_together = (('attr', 'item'),)
+    # class Meta:
+    #     unique_together = (('attr', 'item'),)
 
     def __str__(self):
         return str(self.item) + " - " + str(self.attr)
+
+
+# TODO название property! ProductAttributeValue
+    # class Meta:
+    #     unique_together = (('attr', 'item'),)
 
 
 class Image(models.Model):

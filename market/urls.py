@@ -25,8 +25,8 @@ urlpatterns = [
     path('test', views.test, name='test'),
     path('category/<str:category>', views.products),
     path('<str:slug>/<int:id>/', views.detail),
-    path('<str:slug>/<int:id>/add', views.add),
-    path('<str:slug>/<int:id>/add_review', views.add_review),
+    # path('<str:slug>/<int:id>/add', views.add),
+    # path('<str:slug>/<int:id>/add_review', views.add_review),
     path('search', views.search),
 ]
 
