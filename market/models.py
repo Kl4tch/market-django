@@ -57,6 +57,9 @@ class ItemDetail(models.Model):
     item = models.ForeignKey('Item', on_delete=models.CASCADE)
     attr = models.ForeignKey('scraper.AttributeValue', on_delete=models.CASCADE)
 
+    class Meta:
+        verbose_name = "Характеристика товара"
+        verbose_name_plural = "Характеристики товаров"
     # class Meta:
     #     unique_together = (('attr', 'item'),)
 
@@ -78,6 +81,6 @@ class Image(models.Model):
         return str(self.item) + " - " + str(self.position)
 
     class Meta:
-        verbose_name = "Изображение"
-        verbose_name_plural = "Изображения"
+        verbose_name = "Изображение товара"
+        verbose_name_plural = "Изображения товаров"
 

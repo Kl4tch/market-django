@@ -21,6 +21,8 @@ def test(request):
 def detail(request, slug, id):
     item = get_object_or_404(Item, id=id, slug=slug)
     images = Image.objects.filter(item__in=Item.objects.filter(id=id))
+
+    attrs = ItemDetail.objects.filter(item=item)
     # comments = Comment.objects.filter(item=id).order_by('-date')
 
     # def _sort_comments(id):
@@ -29,6 +31,7 @@ def detail(request, slug, id):
     context = {
         'item': item,
         'images': images,
+        'attrs': attrs,
         # 'comments': comments,
         'var': None,
     }

@@ -10,15 +10,15 @@ admin.site.register(Category)
 admin.site.register(ItemDetail)
 
 
-class Imageline(admin.StackedInline):
+class ImageLine(admin.StackedInline):
     model = Image
     extra = 1
 
 
-# class FilterDetailLine(admin.StackedInline):
-#     model = FilterDetail
-#     extra = 1
-#
+class ItemDetailLine(admin.StackedInline):
+    model = ItemDetail
+    extra = 1
+
 #
 # class FilterNameAdmin(admin.ModelAdmin):
 #     model = FilterName
@@ -43,7 +43,7 @@ class Imageline(admin.StackedInline):
 class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_display = ('title', 'is_enabled')
-    # inlines = [Imageline, ItemDetailLine, ]
+    inlines = [ImageLine]
     search_fields = ['title', ]
     list_per_page = 20
 

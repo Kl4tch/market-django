@@ -16,14 +16,14 @@
 
                 <div class="left_dorp">
                     <select class="sorting">
-                        <option value="1">Default sorting</option>
-                        <option value="2">Default sorting 01</option>
-                        <option value="4">Default sorting 02</option>
+                        <option value="1">Сортировка по рейтингу</option>
+                        <option value="2">Сортировка по цене (возрастанию)</option>
+                        <option value="4">Сортировка по цене (убывание)</option>
                     </select>
                     <select class="show">
-                        <option value="1">Show 12</option>
-                        <option value="2">Show 14</option>
-                        <option value="4">Show 16</option>
+                        <option value="1">Показать по  15</option>
+                        <option value="2">Показать по 30</option>
+                        <option value="4">Показать по 60</option>
                     </select>
                 </div>
                 <div class="right_page ml-auto">
@@ -49,7 +49,7 @@
                 <div class="f_p_item">
                     <div class="f_p_img">
                          {% for img in all_images %}
-                             {% if img.item.id == item.id and img.position == 1  %}
+                             {% if img.item.id == item.id and img.position == 0  %}
                                  <a href="/{{ item.slug }}/{{ item.id }}/"><img class="img-fluid" style="height: 200px; display: block; margin: 0 auto;" src="{{ img.file.url }}"></a>
                              {% endif %}
                         {% endfor %}
@@ -57,11 +57,11 @@
                     <div>
                         <h2 class = "title1" style="text-align: center"><a href="/{{ item.slug }}/{{ item.id }}/">{{  item.title   }}</a></h2>
                     </div>
-                    <h5 style="margin-bottom: 20px;text-align: center">{{ item.price }} руб</h5>
-
-                    {% if item.oldPrice != None %}
-                        <h6 style="margin-bottom: 20px;text-align: center"><strike>{{ item.oldPrice }} руб</strike></h6>
-                    {% endif %}
+{#                    <h5 style="margin-bottom: 20px;text-align: center">{{ item.price }} руб</h5>#}
+{##}
+{#                    {% if item.oldPrice != None %}#}
+{#                        <h6 style="margin-bottom: 20px;text-align: center"><strike>{{ item.oldPrice }} руб</strike></h6>#}
+{#                    {% endif %}#}
                 </div>
             </div>
 

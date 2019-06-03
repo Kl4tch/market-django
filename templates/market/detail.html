@@ -60,51 +60,19 @@
     </div>
 
            <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">
-            <button class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_cart">В корзину</button>
+            <button class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_cart">Сравнить</button>
           </div>
-      <div class="row col-sm-1 col-md-6 col-lg-5 col-xl-4" style="margin-left: 50px">
+      <div class="row col-sm-8 col-md-8 col-lg-8 col-xl-8" style="margin-left: 50px">
           {{ item.text }}
           <br>ПОДРОБНОСТИ:<br>
           {% for filter in filterName %}
               {{ filter.name }}
           {% endfor %}
 
-          {% for detail in item_detail %}
-              {% if not detail.value  %}
-                {{ detail.attr.name  }}
-                  {% else %}
-                  {{ detail.value }}
-              {% endif %}
+          {% for detail in attrs %}
+                {{ detail.attr.attributeTitle }} - {{ detail.attr.value}}<br>
           {% endfor %}
       </div>
-
-      <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">
-          <div class="form-group">
-              <label for="usr">Name:</label>
-              <div class="col-md-12">
-
-                  <form method="POST">
-                      {% csrf_token %}
-                      {{ form.as_p }}
-
-                      <div class="form-group">
-                        <textarea class="form-control" name="message" id="message" rows="3" placeholder="Отзыв"></textarea>
-                      </div>
-                  <button type="submit" class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_review">Оставить отзыв</button>
-
-                  </form>
-
-                </div>
-          </div>
-
-          <br>
-
-          {% include 'market/comments.html' %}
-
-      </div>
-
-
-
       </div>
     </div>
 

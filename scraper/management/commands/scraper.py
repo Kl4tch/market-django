@@ -1,10 +1,10 @@
 import requests
+
+from django.core.files import File
+from django.core.files.temp import NamedTemporaryFile
+
 from bs4 import BeautifulSoup
 
-# # для работы с Django моделями
-# import os
-# os.environ.setdefault("DJANGO_SETTINGS_MODULE", "kurs.settings")
-# import django
 from market.models import Brand
 from scraper.models import *
 from market.models import *
@@ -27,14 +27,14 @@ def scrapeR():
         for i in brands:
             stringsBrands.append(i.name)
 
-        for i in attributeTitle:
-            stringsAttributeTitle.append([i.attr, i.bigTitle.title])
-
         for i in bigGroups:
             stringsBigGroups.append(i.title)
 
+        for i in attributeTitle:
+            stringsAttributeTitle.append([i.attr, i.bigTitle.title])
+
         for i in attributeValue:
-            stringsAttributeValue.append([i.value, i.attributeTitle.attr])
+            stringsAttributeValue.append([i.value, i.attributeTitle.attr, i.attributeTitle.bigTitle.title])
 
     stringsBigGroups = []
     stringsAttributeTitle = []
@@ -46,15 +46,12 @@ def scrapeR():
     def getTitle():
         titleSource = soup.find_all('h2', 'h1 ng-star-inserted')
         titleSource = str(titleSource[0])
-        print(titleSource)
         i1 = titleSource.find('>')+1
         i2 = titleSource.find('</h2>')
 
         # в розетке плюшки при покупки к некоторым товарам
         # указываются в названии через "+ ...", отсекаем это
         plusInd = titleSource.find(' + ')
-
-        print("TEST: i1 = " + str(i1) + ", i2 = " + str(i2) + ", plusInd = " + str(plusInd))
 
         if plusInd != -1:
             return titleSource[i1: plusInd-1]
@@ -66,6 +63,7 @@ def scrapeR():
         if stringBrand not in stringsBrands:
             brand = Brand(name=stringBrand)
             brand.save()
+            stringsBrands.append(stringBrand)
         else:
             brand = Brand.objects.get(name=stringBrand)
 
@@ -74,7 +72,8 @@ def scrapeR():
     session = requests.Session()
     session.headers = {"User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_3) AppleWebKit/537.36 (KHTML, like Gecko)"}
 
-    url = "https://rozetka.com.ua/mobile-phones/c80003/"
+    # url = "https://rozetka.com.ua/mobile-phones/c80003/"
+    url = "https://rozetka.com.ua/headphones/c80027/page=2/"
     content = session.get(url, verify=False).content
 
     soup = BeautifulSoup(content, "html.parser")
@@ -85,7 +84,7 @@ def scrapeR():
     for i in titles:
         titlesS.append(str(i))
 
-    href = []
+    itemsMainUrls = []
 
     for i1 in titlesS:
         a = i1.find("href")
@@ -93,18 +92,13 @@ def scrapeR():
         a2 = i1.find('"', a1+1)
         link = i1[a1:a2]
         print(f"{link}")
-        href.append(link)
+        itemsMainUrls.append(link)
 
-    itemDetailsUrls = []
-
-    for i in href:
-        itemDetailsUrls.append(str(i) + "characteristics/")
-
-    for i in itemDetailsUrls:
-        content = session.get(i, verify=False).content
+    for itemMainUrl in itemsMainUrls:
+        itemDetailsUrl = itemMainUrl + "characteristics/"
+        content = session.get(itemDetailsUrl, verify=False).content
 
         soup = BeautifulSoup(content, "html.parser")
-
 
         title1 = soup.find_all('table')
 
@@ -129,16 +123,67 @@ def scrapeR():
             tableRawsString.append(buf)
 
         def getItem():
-            if getTitle() not in stringsItems:
-                newItem = Item(title=title, category=Category.objects.get(name='Смартфоны'),
+            if title not in stringsItems:
+                newItem = Item(title=title, category=Category.objects.get(name='Наушники'),
                        brand=getBrand(title), text='fd')
                 newItem.save()
+                stringsItems.append(title)
                 return newItem
             else:
                 return Item.objects.get(title=title)
 
         newItem = getItem()
 
+        def getImages(href):
+            content = session.get(href, verify=False).content
+            soup = BeautifulSoup(content, "html.parser")
+
+            pageString = str(soup)
+
+            # imagesHrefs = []
+            #
+            # ind = pageString.find('<script id="serverApp-state" type="application/json">')
+            #
+            # ind1 = pageString.find('https://i1.rozetka.ua/goods/', ind)
+            # ind2 = pageString.find('&q', ind1)
+
+            ind = pageString.find('https://i1.rozetka.ua/goods')
+
+            if ind!=-1:
+                ind2 = pageString.find('"', ind+1)
+
+                imageUrl = pageString[ind:ind2]
+
+                print('TEST228  = ' + imageUrl)
+
+                r = requests.get(imageUrl)
+
+                img_temp = NamedTemporaryFile(delete=True)
+                img_temp.write(r.content)
+                img_temp.flush()
+
+                a = Image(item=newItem, position=0)
+                a.file.save(newItem.slug + ".jpg", File(img_temp), save=True)
+                a.save()
+
+            # imagesHrefs.append(a)
+
+            # print("TEST228: " + a + ", ind1 = " + str(ind) + ", ind2 = " + str(ind2) + ' (' + str(len(a)) + ')\n')
+
+            # while ind != -1:
+            #     ind = pageString.find('https://i1.rozetka.ua/goods/', ind)
+            #     ind2 = pageString.find('&q')
+            #
+            #     imagesHrefs.append(pageString[ind:ind2-1])
+            #
+            #     print("TEST228: " + pageString[ind:ind2-1] + ", ind1 = " + str(ind) + ", ind2 = " + str(ind2) + '\n')
+            #
+            #     ind = pageString.find('https://i1.rozetka.ua/goods/', ind2)
+            #
+            # for i in imagesHrefs:
+            #     print("TEST228: " + i)
+
+        getImages(itemMainUrl)
 
         # print("NEW ITEM = " + newItem.title)
 
@@ -153,27 +198,32 @@ def scrapeR():
                     if bigTitle not in stringsBigGroups:
                         test = GroupTitle(title=bigTitle)
                         test.save()
+                        stringsBigGroups.append(bigTitle)
                         bigGroup = GroupTitle.objects.get(title=bigTitle)
                     else:
                         bigGroup = GroupTitle.objects.get(title=bigTitle)
-
-
-            # atributesTitles
-            isTitle = i.find("pp-characteristics-title")
-            if isTitle != -1:
-                a = i.find("span")
-                a2 = i.find(">", a)+1
-                a3 = i.find("<", a2)
-                title = i[a2:a3]
-
-                if [title, bigGroup.title] not in stringsAttributeTitle:
-                    # print('new: ' + title)
-                    attributeTitle = AttributeTitle(attr=title, bigTitle=bigGroup)
-                    attributeTitle.save()
-                    stringsAttributeTitle.append([title, bigGroup.title])
                 else:
-                    # print('old' + title)
-                    attributeTitle = AttributeTitle.objects.get(attr=title, bigTitle=bigGroup)
+                    bigGroup = GroupTitle.objects.get(title="(пустышка)")   # костыль, продумать надо
+            else:
+                bigGroup = GroupTitle.objects.get(title="(пустышка)")  # костыль, продумать надо
+
+
+        # atributesTitles
+        isTitle = i.find("pp-characteristics-title")
+        if isTitle != -1:
+            a = i.find("span")
+            a2 = i.find(">", a)+1
+            a3 = i.find("<", a2)
+            title = i[a2:a3]
+
+            if [title, bigGroup.title] not in stringsAttributeTitle:
+                # print('new: ' + title)
+                attributeTitle = AttributeTitle(attr=title, bigTitle=bigGroup)
+                attributeTitle.save()
+                stringsAttributeTitle.append([title, bigGroup.title])
+            else:
+                # print('old' + title)
+                attributeTitle = AttributeTitle.objects.get(attr=title, bigTitle=bigGroup)
 
 
             # print("AtrTitleId = " + str(len(attributeTitle)))
@@ -207,17 +257,21 @@ def scrapeR():
 
                         k = i.find("feature-value features-full-view ng-star-inserted", obsh)
 
-                    if [value, attributeTitle.attr] not in stringsAttributeValue:
+
+                    print("TEST ERROR:" + "value = " + value + ", titile = " +  attributeTitle.attr)
+                    if [value, attributeTitle.attr, attributeTitle.bigTitle.title] not in stringsAttributeValue:
                         print('new AtributeValue: ' + value)
                         attributeTitleObject = AttributeValue(value=value, attributeTitle=attributeTitle)
                         attributeTitleObject.save()
-                        stringsAttributeTitle.append([value, attributeTitle.attr])
+                        stringsAttributeValue.append([value, attributeTitle.attr, attributeTitle.bigTitle.title])
+                        stringsAttributeValue.append([value, attributeTitle.attr, attributeTitle.bigTitle.title])
                     else:
-                        print('old AtributeValue' + value)
+                        print('old AtributeValue' + value + " - " + attributeTitle.attr)
                         attributeTitleObject = AttributeValue.objects.get(value=value, attributeTitle=attributeTitle)
 
                     a = ItemDetail(item=newItem, attr=attributeTitleObject)
                     a.save()
+
 
 
 # def scrapeY():
@@ -229,8 +283,6 @@ def scrapeR():
 #     proxy = {'http': 'http://84.51.77.30:4145'}
 #
 #     content = session.get(url, verify=False, proxies=proxy).content
-#
-#     soup = BeautifulSoup(content, "html.parser")
 #
 #     items = soup.find_all('div', {'class':'n-snippet-cell2 i-bem b-zone b-spy-visible'})
 #     print(soup)
