@@ -7,7 +7,6 @@ from django.contrib.admin.widgets import AdminFileWidget
 
 admin.site.register(Brand)
 admin.site.register(Category)
-admin.site.register(ItemDetail)
 
 
 class ImageLine(admin.StackedInline):
@@ -43,12 +42,18 @@ class ItemDetailLine(admin.StackedInline):
 class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_display = ('title', 'is_enabled')
-    inlines = [ImageLine]
+    inlines = [ImageLine,ItemDetailLine]
     search_fields = ['title', ]
     list_per_page = 20
+    list_filter = ('category', 'brand')
+
+
+class ItemDetailAdmin(admin.ModelAdmin):
+    list_filter = ('item',)
 
 
 
 admin.site.register(Item, ItemAdmin)
+admin.site.register(ItemDetail, ItemDetailAdmin)
 # admin.site.register(Category, CategoryAdmin)
 # admin.site.register(FilterName, FilterNameAdmin)
