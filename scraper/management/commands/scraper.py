@@ -224,7 +224,7 @@ class Command(BaseCommand):
                     if a == -1:
                         print("НИХУЯ БЛЯТЬ НЕТУ КОДА")
 
-                groupTitle = GroupTitle.objects.get(title="(пустышка)")
+                groupTitle = GroupTitle.objects.get(title="Общее")
                 for i in tableRawsString:
                     #GroupTitles
                     isBigTitle = i.find("chars-group-title")
