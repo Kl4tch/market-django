@@ -9,6 +9,8 @@ from scraper.models import *
 from market.models import *
 from django.core.management.base import BaseCommand
 
+import sys
+
 requests.packages.urllib3.disable_warnings()
 
 
@@ -64,9 +66,6 @@ class Command(BaseCommand):
         getAll()
 
         def getTitle():
-            f = open('FINAL', 'w')
-            f.write(str(soup))
-            f.close()
             titleSource = soup.find_all('h2', 'detail-title h1')
             if len(titleSource) == 0:
                 titleSource = soup.find_all('h2', 'h1 ng-star-inserted')
@@ -91,11 +90,10 @@ class Command(BaseCommand):
                     t = titleSource[i1: plus2Ind+1]
                 else:
                     t = titleSource[i1:plusInd]
-            print("Title = " + t)
             return t
 
         # почти идеально работает, brand я вытаскиваю из script, в 1-5% почему-то его
-        # там нет, вместо этого в название бренда будет часть кода html :(
+        # там нет, вместо этого в название бренда будет просто "НЕОПРЕДЕЛЕН"
         def getBrand():
             a = str(soup)
 
@@ -103,8 +101,10 @@ class Command(BaseCommand):
             ind1 = a.find(':', ind) + 2
             ind2 = a.find('"', ind1)
 
-            stringBrand = a[ind1:ind2]
-            print("BRAND = " + stringBrand)
+            if ind1 == -1 or ind2 == -1:
+                stringBrand = 'НЕОПРЕДЕЛЕН'
+            else:
+                stringBrand = a[ind1:ind2]
 
             if stringBrand not in stringsBrands:
                 brand = Brand(name=stringBrand)
@@ -128,9 +128,6 @@ class Command(BaseCommand):
             titlesS = []
 
             for i in titles:
-                f = open('newTest.html', 'w')
-                f.write(str(i))
-                f.close()
                 titlesS.append(str(i))
 
             itemsMainUrls = []
@@ -149,13 +146,9 @@ class Command(BaseCommand):
 
                 soup = BeautifulSoup(content, "html.parser")
 
-                title1 = soup.find_all('table')
+                print("CORRECT = " + itemMainUrl)
 
-                groups = soup.find_all('span', {'class':'feature-glossary-term ng-star-inserted'})
-                # print(groups)
-                # print("\nKol-vo атрибутов: " + str(len(groups)))
-
-                attr = soup.find_all('tr', 'ng-star-inserted')
+                attr = soup.find_all('td')
 
                 tableRawsString = []
 
@@ -169,7 +162,15 @@ class Command(BaseCommand):
 
                     # в душе не ебу откуда тут так много комментов ПУСТЫХ, пока убираю - могут помешать при скрейпе
                     buf = buf.replace('<!-- -->', '')
+
+                    # розетка ебанутая. где-то 9.06 чуть обновила дизайн и некоторые атрибуты в html-коде переносятся.
+                    # Убираю все, но в конце строки добавляю перенос
+                    buf = buf.replace('\n', '')
+                    buf = buf + "\n"
                     tableRawsString.append(buf)
+
+                if len(tableRawsString) == 0:
+                    print("Ошибка получение атрибутов (tableRawsString.len = 0)")
 
                 def getItem():
                     if title not in stringsItems:
@@ -179,137 +180,110 @@ class Command(BaseCommand):
                         stringsItems.append(title)
                         return newItem
                     else:
-                        return Item.objects.get(title=title)
+                        return -1
 
                 newItem = getItem()
+
+                if newItem == -1:
+                    print("Товар уже в БД. Пропуск")
+                    break
 
                 def getImages(href):
                     content = session.get(href, verify=False).content
                     soup = BeautifulSoup(content, "html.parser")
 
-                    pageString = str(soup)
-
-                    # imagesHrefs = []
-                    #
-                    # ind = pageString.find('<script id="serverApp-state" type="application/json">')
-                    #
-                    # ind1 = pageString.find('https://i1.rozetka.ua/goods/', ind)
-                    # ind2 = pageString.find('&q', ind1)
-
-                    ind = pageString.find('https://i1.rozetka.ua/goods')
+                    ind = 0
 
                     if ind!=-1:
-                        ind2 = pageString.find('"', ind+1)
+                        im = soup.find_all('a', 'detail-img-thumbs-l-i-link')
 
-                        imageUrl = pageString[ind:ind2]
+                        pos = 0
+                        for i in im:
+                            test = str(i)
+                            ind = test.find('https://i1.rozetka.ua/goods')
+                            ind2 = test.find('"', ind+1)
 
-                        # print('TEST228  = ' + imageUrl)
+                            if ind != -1 and ind2 != -1:
+                                imageUrl = test[ind:ind2]
 
-                        r = requests.get(imageUrl)
+                                r = requests.get(imageUrl)
 
-                        img_temp = NamedTemporaryFile(delete=True)
-                        img_temp.write(r.content)
-                        img_temp.flush()
+                                img_temp = NamedTemporaryFile(delete=True)
+                                img_temp.write(r.content)
+                                img_temp.flush()
 
-                        a = Image(item=newItem, position=0)
-                        a.file.save(newItem.slug + ".jpg", File(img_temp), save=True)
-                        a.save()
-
-                    # imagesHrefs.append(a)
-
-                    # print("TEST228: " + a + ", ind1 = " + str(ind) + ", ind2 = " + str(ind2) + ' (' + str(len(a)) + ')\n')
-
-                    # while ind != -1:
-                    #     ind = pageString.find('https://i1.rozetka.ua/goods/', ind)
-                    #     ind2 = pageString.find('&q')
-                    #
-                    #     imagesHrefs.append(pageString[ind:ind2-1])
-                    #
-                    #     print("TEST228: " + pageString[ind:ind2-1] + ", ind1 = " + str(ind) + ", ind2 = " + str(ind2) + '\n')
-                    #
-                    #     ind = pageString.find('https://i1.rozetka.ua/goods/', ind2)
-                    #
-                    # for i in imagesHrefs:
-                    #     print("TEST228: " + i)
+                                a = Image(item=newItem, position=pos)
+                                a.file.save(newItem.slug + ".jpg", File(img_temp), save=True)
+                                a.save()
+                                pos += 1
 
                 getImages(itemMainUrl)
 
-                # print("NEW ITEM = " + newItem.title)
+                for i in tableRawsString:
+                    a = i.find('<')
+                    if a == -1:
+                        print("НИХУЯ БЛЯТЬ НЕТУ КОДА")
 
+                groupTitle = GroupTitle.objects.get(title="(пустышка)")
                 for i in tableRawsString:
                     #GroupTitles
-                    bigGroup = GroupTitle.objects.get(title="(пустышка)")  # костыль, продумать надо
-                    isBigTitle = i.find("feature-group-title")
+                    isBigTitle = i.find("chars-group-title")
                     if isBigTitle != -1:
                         a = i.find('>', isBigTitle) + 1
                         a2 = i.find('<', a)
                         bigTitle = i[a:a2]
+                        print("Big titile = " + bigTitle)
                         if (not bigTitle.isspace()) and (bigTitle != ''):
                             if bigTitle not in stringsBigGroups:
                                 test = GroupTitle(title=bigTitle)
                                 test.save()
                                 stringsBigGroups.append(bigTitle)
-                                bigGroup = GroupTitle.objects.get(title=bigTitle)
-                            else:
-                                bigGroup = GroupTitle.objects.get(title=bigTitle)
-
-
-                    # atributesTitles
-                    isTitle = i.find("pp-characteristics-title")
-                    if isTitle != -1:
-                        a = i.find("span")
-                        a2 = i.find(">", a)+1
-                        a3 = i.find("<", a2)
-                        title = i[a2:a3]
-
-                        if [title, bigGroup.title] not in stringsAttributeTitle:
-                            # print('new: ' + title)
-                            attributeTitle = AttributeTitle(attr=title, bigTitle=bigGroup)
-                            attributeTitle.save()
-                            stringsAttributeTitle.append([title, bigGroup.title])
+                            groupTitle = GroupTitle.objects.get(title=bigTitle)
+                            print("Big titile Object= " + groupTitle.title)
                         else:
-                            # print('old' + title)
-                            attributeTitle = AttributeTitle.objects.get(attr=title, bigTitle=bigGroup)
+                            groupTitle = GroupTitle.objects.get(title="(пустышка)")  # костыль, продумать надо
+                    else:
+                        # atributesTitles
+                        isTitle = i.find("glossary-term")
+                        if isTitle == -1:
+                            isTitle = i.find("chars-title")
+
+                        if isTitle != -1:
+                            ind1 = i.find('>', isTitle)+1
+                            ind2 = i.find('</', ind1)
+                            atributeTitle = i[ind1:ind2]
+
+                            if [atributeTitle, groupTitle.title] not in stringsAttributeTitle:
+                                # print('new: ' + title)
+                                attributeTitle = AttributeTitle(attr=atributeTitle, bigTitle=groupTitle)
+                                attributeTitle.save()
+                                stringsAttributeTitle.append([atributeTitle, groupTitle.title])
+                                attributeTitle = AttributeTitle.objects.get(attr=atributeTitle, bigTitle=groupTitle)
+                            else:
+                                # print('old' + title)
+                                attributeTitle = AttributeTitle.objects.get(attr=atributeTitle, bigTitle=groupTitle)
 
 
-                        # print("AtrTitleId = " + str(len(attributeTitle)))
                         # atributesValues
-                        isAtributeValue = i.find("feature-value features-full-view ng-star-inserted")
+                        isAtributeValue = i.find("novisited")
+                        if isAtributeValue == -1:
+                            isAtributeValue = i.find('chars-value-inner')
+
                         if isAtributeValue != -1:
                             k = 0
-                            obsh = 0
-                            len1 = len("feature-value features-full-view ng-star-inserted")
                             while k != -1:
-                                a = i.find("feature-value features-full-view ng-star-inserted", obsh)
-                                a2 = i.find('ng-star-inserted', a+len1)
+                                a3 = i.find('>', isAtributeValue + k) + 1
+                                a4 = i.find('<', a3)
 
-                                if (a2 != -1):
-                                    a3 = i.find('>', a2+1) + 1
-                                    a4 = i.find('<', a3)
+                                value = i[a3:a4]
 
-                                    value = i[a3:a4]
-
-                                    obsh = a4
-
-                                    k = i.find("feature-value features-full-view ng-star-inserted", obsh)
-                                    # print(value + " (" + attributeTitle.attr + ')')
-                                else:
-                                    a3 = i.find('>', a + 1) + 1
-                                    a4 = i.find('<', a3)
-
-                                    value = i[a3:a4]
-
-                                    obsh = a4
-
-                                    k = i.find("feature-value features-full-view ng-star-inserted", obsh)
-
+                                k = i.find("novisited", a4)
 
                                 # print("TEST ERROR:" + "value = " + value + ", titile = " +  attributeTitle.attr)
                                 if [value, attributeTitle.attr, attributeTitle.bigTitle.title] not in stringsAttributeValue:
                                     # print('new AtributeValue: ' + value)
                                     attributeTitleObject = AttributeValue(value=value, attributeTitle=attributeTitle)
                                     attributeTitleObject.save()
-                                    stringsAttributeValue.append([value, attributeTitle.attr, attributeTitle.bigTitle.title])
                                     stringsAttributeValue.append([value, attributeTitle.attr, attributeTitle.bigTitle.title])
                                 else:
                                     # print('old AtributeValue' + value + " - " + attributeTitle.attr)

@@ -5,40 +5,37 @@
       <div class="row">
            <div class="product_top_bar col-3">
 
-                {% for filterName in filterNames %}
-                    {{ filterName.name }}
-                {% endfor %}
-
-                {% for filter in filters %}
-                    {{ filter.name }}
-                {% endfor %}
+                <form action="/search" method="get">
+                    {{ searchForm }}
+                    <input type="submit" value="Поиск" />
+                </form>
 
 
-                <div class="left_dorp">
-                    <select class="sorting">
-                        <option value="1">Сортировка по рейтингу</option>
-                        <option value="2">Сортировка по цене (возрастанию)</option>
-                        <option value="4">Сортировка по цене (убывание)</option>
-                    </select>
-                    <select class="show">
-                        <option value="1">Показать по  15</option>
-                        <option value="2">Показать по 30</option>
-                        <option value="4">Показать по 60</option>
-                    </select>
-                </div>
-                <div class="right_page ml-auto">
-                    <nav class="cat_page" aria-label="Page navigation example">
-                        <ul class="pagination">
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></li>
-                            <li class="page-item active"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item blank"><a class="page-link" href="#">...</a></li>
-                            <li class="page-item"><a class="page-link" href="#">6</a></li>
-                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>
-                        </ul>
-                    </nav>
-                </div>
+{#                <div class="left_dorp">#}
+{#                    <select class="sorting">#}
+{#                        <option value="1">Сортировка по рейтингу</option>#}
+{#                        <option value="2">Сортировка по цене (возрастанию)</option>#}
+{#                        <option value="4">Сортировка по цене (убывание)</option>#}
+{#                    </select>#}
+{#                    <select class="show">#}
+{#                        <option value="1">Показать по  15</option>#}
+{#                        <option value="2">Показать по 30</option>#}
+{#                        <option value="4">Показать по 60</option>#}
+{#                    </select>#}
+{#                </div>#}
+{#                <div class="right_page ml-auto">#}
+{#                    <nav class="cat_page" aria-label="Page navigation example">#}
+{#                        <ul class="pagination">#}
+{#                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-long-arrow-left" aria-hidden="true"></i></a></li>#}
+{#                            <li class="page-item active"><a class="page-link" href="#">1</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#">2</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#">3</a></li>#}
+{#                            <li class="page-item blank"><a class="page-link" href="#">...</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#">6</a></li>#}
+{#                            <li class="page-item"><a class="page-link" href="#"><i class="fa fa-long-arrow-right" aria-hidden="true"></i></a></li>#}
+{#                        </ul>#}
+{#                    </nav>#}
+{#                </div>#}
             </div>
 
           <div class="row col-sm-12 col-md-9">
@@ -50,7 +47,7 @@
                     <div class="f_p_img">
                          {% for img in all_images %}
                              {% if img.item.id == item.id and img.position == 0  %}
-                                 <a href="/{{ item.slug }}/{{ item.id }}/"><img class="img-fluid" style="height: 200px; display: block; margin: 0 auto;" src="{{ img.file.url }}"></a>
+                                 <a href="/{{ item.slug }}/{{ item.id }}/"><img class="img-fluid" style="max-height: 200px; display: block; margin: 0 auto;" src="{{ img.file.url }}"></a>
                              {% endif %}
                         {% endfor %}
                     </div>

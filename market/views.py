@@ -1,11 +1,13 @@
 from django.shortcuts import render, get_object_or_404, get_list_or_404, redirect
 from .models import *
+from scraper.models import *
 # from user.models import Comment, User
 from user.views import main
 from django.http import JsonResponse
 from django.utils.timezone import now
 import datetime
-
+from scraper.models import StoreItem
+from .forms import SearchForm
 
 
 
@@ -23,6 +25,8 @@ def detail(request, slug, id):
     images = Image.objects.filter(item__in=Item.objects.filter(id=id))
 
     attrs = ItemDetail.objects.filter(item=item)
+    groups = GroupTitle.objects.all()
+    storeItems = StoreItem.objects.filter(item=item)
     # comments = Comment.objects.filter(item=id).order_by('-date')
 
     # def _sort_comments(id):
@@ -32,6 +36,8 @@ def detail(request, slug, id):
         'item': item,
         'images': images,
         'attrs': attrs,
+        'groups': groups,
+        'storeItems': storeItems,
         # 'comments': comments,
         'var': None,
     }
@@ -79,10 +85,13 @@ def add_review(request, slug, id):
 def products(request, category):
     all_items = Item.objects.filter(category__in=Category.objects.filter(folder=category))
     all_images = Image.objects.all()
+    searchForm = SearchForm
 
     context = {
         'all_items': all_items,
         'all_images': all_images,
+        'searchForm': searchForm,
+        'category': category,
     }
 
     return render(request, 'market/products.html', context)
@@ -95,4 +104,19 @@ def category(request):
 
 
 def search(request):
-    return render(request, 'market/search.html')
+    print("!!!!!")
+    search = request.GET.get('search')
+    print(search)
+    items = Item.objects.filter(title__contains=search)
+    print("LEN = " + str(len(items)))
+
+    all_images = Image.objects.all()
+    searchForm = SearchForm
+
+    context = {
+        'all_items': items,
+        'all_images': all_images,
+        'searchForm': searchForm,
+        'category': category,
+    }
+    return render(request, 'market/products.html', context)

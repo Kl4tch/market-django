@@ -74,3 +74,8 @@ class StoreItem(models.Model):
     class Meta:
         verbose_name = "Товар в магазине"
         verbose_name_plural = "Товары в магазине"
+
+    def __str__(self):
+        return f"{self.item.title} {self.store.name} {self.price}"
+
+

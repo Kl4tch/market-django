@@ -35,42 +35,54 @@
 
 {% block content %}
     <div class="container">
+    <h1 style="align-content: center">{{ item.title }}</h1>
       <div class="row">
-
-
-    <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4">
-      <div class="large-5 column">
-        <div class="xzoom-container">
-          <div class="xzoom-thumbs">
+    <div class="col-sm7 col-md-7 col-lg-7 col-xl-7">
+        <div class="xzoom-container" style="max-width: 150px; max-height: 200px">
+          <div class="xzoom-thumbs" style="max-height: 200px; max-width: 150px">
 
               {% for image in images%}
 
                   {% if forloop.first %}
-                    <img class="xzoom5" id="xzoom-magnific" src="{{ image.file.url }}" />
+                        <img class="xzoom5" id="xzoom-magnific" style="max-height: 300px; max-width: 200px" src="{{ image.file.url }}" /><br>
                   {% endif %}
 
-            <a href="{{ image.file.url }}">
-                <img class="xzoom-gallery5" width="80" src="{{ image.file.url }}">
-            </a>
+                    <a href="{{ image.file.url }}">
+                        <img class="xzoom-gallery5" style="max-height: 150px" src="{{ image.file.url }}">
+                    </a>
 
               {% endfor %}
           </div>
         </div>
-      </div>
-    </div>
-
-           <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">
-            <button class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_cart">Сравнить</button>
+        <div class="row">
+              <table style="width: 200px">
+                  <tr>
+                    <th>Магазин</th>
+                    <th>Цена</th>
+                  </tr>
+                    {% for storeItem in storeItems %}
+                      <tr>
+                        <th>{{ storeItem.store.name }}</th>
+                        <th>{{ storeItem.price }}</th>
+                      </tr>
+                    {% endfor %}
+                  </tr>
+              </table>
           </div>
-      <div class="row col-sm-8 col-md-8 col-lg-8 col-xl-8" style="margin-left: 50px">
+    </div>чё
+{#           <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">#}
+{#            <button class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_cart">Сравнить</button>#}
+{#          </div>#}
+      <div class="row col-sm-3 col-md-3 col-lg-3 col-xl-3" style="margin-left: 50px">
           {{ item.text }}
           <br>ПОДРОБНОСТИ:<br>
-          {% for filter in filterName %}
-              {{ filter.name }}
-          {% endfor %}
-
-          {% for detail in attrs %}
-                {{ detail.attr.attributeTitle }} - {{ detail.attr.value}}<br>
+          {% for group in groups %}
+              <br><strong>{{ group.title }}</strong><br>
+            {% for detail in attrs %}
+                {% if detail.attr.attributeTitle.bigTitle == group %}
+                    {{ detail.attr.attributeTitle.attr }} - {{ detail.attr.value}}<br>
+                {% endif %}
+            {% endfor %}
           {% endfor %}
       </div>
       </div>
