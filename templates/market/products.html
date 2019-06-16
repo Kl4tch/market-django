@@ -4,9 +4,28 @@
 <div class="container">
       <div class="row">
            <div class="product_top_bar col-3">
+                <form action="search" method="get" style="position: fixed; overflow: auto; height: 100%">
+                    {{ searchForm }} <br>
+                    <strong>Цена:</strong><br>
+                    <input type="number" placeholder="Мин:" name="minPrice">
+                    <input type="number" placeholder="Макс:" name="maxPrice"><br>
+                    {% for filterTitle in filterTitles %}
+                        <strong>{{filterTitle}}</strong><br>
 
-                <form action="/search" method="get">
-                    {{ searchForm }}
+                        {% for filterValue in filterValues %}
+                            {% if filterValue.attr.attributeTitle == filterTitle %}
+                                <input type="checkbox" id="{{ filterValue.attr }}" name="filterValue"
+                                       value={{ filterValue.attr }}>
+                                <label for="{{ filterValue.attr }}">{{ filterValue.attr }}</label><br>
+                            {% endif %}
+                        {% endfor %}
+
+                    {% endfor  %}
+                    <strong>Производители:</strong><br>
+                    {% for brand in brands %}
+                        <input type="checkbox" id="{{ brand.name }}" name="brand" value={{ brand.name }}>
+                        <label for="{{ brand.name }}">{{ brand.name }}</label><br>
+                    {% endfor %}
                     <input type="submit" value="Поиск" />
                 </form>
 
@@ -38,11 +57,11 @@
 {#                </div>#}
             </div>
 
-          <div class="row col-sm-12 col-md-9">
+          <div class="row col-9">
 
             {% for item in all_items %}
 
-            <div class="col-sm-6 col-md-4 col-lg-4 col-xl-4" style="margin-bottom: 20px;">
+            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4" style="margin-bottom: 20px;">
                 <div class="f_p_item">
                     <div class="f_p_img">
                          {% for img in all_images %}
@@ -53,6 +72,7 @@
                     </div>
                     <div>
                         <h2 class = "title1" style="text-align: center"><a href="/{{ item.slug }}/{{ item.id }}/">{{  item.title   }}</a></h2>
+                        <h2 class = "title1" style="text-align: center">{{ item.priceRozetka}} руб</h2>
                     </div>
 {#                    <h5 style="margin-bottom: 20px;text-align: center">{{ item.price }} руб</h5>#}
 {##}

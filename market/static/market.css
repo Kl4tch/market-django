@@ -6,3 +6,13 @@
     line-height: 22px;
     word-wrap: break-word;
 }
+
+.xzoom-source img, .xzoom-preview img, .xzoom-lens img, .xzoom5 img {
+        display: block;
+        max-width: none;
+        max-height: none;
+        -webkit-transition: none;
+        -moz-transition: none;
+        -o-transition: none;
+        transition: none;
+}

@@ -1,6 +1,7 @@
 {% extends 'market/base.html' %}
 {#TODO ТАБ характеристик + корзина #}
 
+
 {% block head %}
     {% load static %}
 
@@ -37,55 +38,83 @@
     <div class="container">
     <h1 style="align-content: center">{{ item.title }}</h1>
       <div class="row">
-    <div class="col-sm7 col-md-7 col-lg-7 col-xl-7">
-        <div class="xzoom-container" style="max-width: 150px; max-height: 200px">
-          <div class="xzoom-thumbs" style="max-height: 200px; max-width: 150px">
+        <div class="xzoom-container col-sm7 col-md-7 col-lg-7 col-xl-7">
+          <div class="xzoom-thumbs">
 
               {% for image in images%}
-
                   {% if forloop.first %}
-                        <img class="xzoom5" id="xzoom-magnific" style="max-height: 300px; max-width: 200px" src="{{ image.file.url }}" /><br>
+                        <img class="xzoom5" id="xzoom-magnific"
+                             src="{{ image.file.url }}"/><br>
+                      <table width="400px"><tr>
                   {% endif %}
 
-                    <a href="{{ image.file.url }}">
-                        <img class="xzoom-gallery5" style="max-height: 150px" src="{{ image.file.url }}">
-                    </a>
+                  {% if forloop.counter0|divisibleby:3 %}
+                      </tr><tr>
+                  {% endif %}
 
+                    <td><a href="{{ image.file.url }}">
+                        <img class="xzoom-gallery5"
+                             src="{{ image.file.url }}">
+                    </a></td>
               {% endfor %}
-          </div>
+                  </tr>
+                  </table>
         </div>
-        <div class="row">
-              <table style="width: 200px">
-                  <tr>
-                    <th>Магазин</th>
-                    <th>Цена</th>
-                  </tr>
-                    {% for storeItem in storeItems %}
-                      <tr>
-                        <th>{{ storeItem.store.name }}</th>
-                        <th>{{ storeItem.price }}</th>
-                      </tr>
-                    {% endfor %}
-                  </tr>
-              </table>
-          </div>
-    </div>чё
+    </div>
+      <div class="col-sm5 col-md-5 col-lg-5 col-xl-5 ">
+          <iframe id="ytplayer" type="text/html" class="raw"
+            src="https://www.youtube.com/embed/?listType=search&list={{ item.title }}"
+            frameborder="0" allowfullscreen style="width: 444px; height:250px">
+          </iframe>
+
+          {% if storeItems|length > 1 %}
+                <div class="row">
+                      <table style="width: 200px" class="table">
+                          <tr>
+                            <th>Магазин</th>
+                            <th>Цена</th>
+                          </tr>
+                            {% for storeItem in storeItems %}
+                              <tr>
+                                <th><a href={{ storeItem.url }}>{{ storeItem.store.name }}</a></th>
+                                <th><a href={{ storeItem.url  }}>{{ storeItem.price }}</a></th>
+                              </tr>
+                            {% endfor %}
+                          </tr>
+                      </table>
+                  </div>
+            {% endif %}
+      </div>
+
 {#           <div class="row col-sm-12 col-md-5 col-lg-6 col-xl-7">#}
 {#            <button class="btn btn-outline-info" style="width: 100px; height: 100px;" id="add_cart">Сравнить</button>#}
 {#          </div>#}
-      <div class="row col-sm-3 col-md-3 col-lg-3 col-xl-3" style="margin-left: 50px">
-          {{ item.text }}
-          <br>ПОДРОБНОСТИ:<br>
-          {% for group in groups %}
-              <br><strong>{{ group.title }}</strong><br>
-            {% for detail in attrs %}
-                {% if detail.attr.attributeTitle.bigTitle == group %}
-                    {{ detail.attr.attributeTitle.attr }} - {{ detail.attr.value}}<br>
-                {% endif %}
-            {% endfor %}
-          {% endfor %}
+      <div class="row">
+          <br>ПОДРОБНОСТИ:
+            <table class="table">
+              {% for group in groups %}
+                  <thead class="thead-light">
+                        <tr>
+                          <th><strong>{{ group.title }}</strong></th>
+                          <th></th>
+                        </tr>
+                    </thead>
+                {% for detail in attrs %}
+                    {% if detail.attr.attributeTitle.bigTitle == group %}
+                        <tbody>
+                        <tr><th>{{ detail.attr.attributeTitle.attr }}</th>
+                            <td>{{ detail.attr.value}}</td>
+                        </tr>
+                        </tbody>
+                        {% else %}
+                        {% endif %}
+                {% endfor %}
+              {% endfor %}
+            </table>
       </div>
       </div>
+
+
     </div>
 
   <script>
@@ -109,6 +138,7 @@
         });
 
         $(".xzoom, .xzoom-gallery").xzoom({tint: '#333', Xoffset: 15});
+
 
   </script>
 

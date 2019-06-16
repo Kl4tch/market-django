@@ -5,38 +5,33 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <link rel="stylesheet" href="{% static 'market.css' %}">
-  <link rel="stylesheet" href="{% static 'bootstrap-4.2.1-dist/css/bootstrap.min.css' %}">
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
-  <script src="{% static 'bootstrap-4.2.1-dist/js/bootstrap.min.js' %}"></script>
+  <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.css' %}">
+  <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
 
   {% block head %} {% endblock %}
 </head>
 <body>
     <nav class="navbar navbar-expand-sm navbar-default bg-light">
       <div>
-        <ul class="navbar-nav">
-          <li class="active">
-            <a class="nav-link" href="/">Главная </a>
+        <ul class="navbar-nav" style="align-items: center">
+          <li class="active" style="margin-right: 5px">
+            <a href="/"><img class="img-fluid" style="max-height: 80px;" src="{% static 'Logo.png'%}"></a>
           </li>
+            <li style="align-items: center">
+                <form action="/search" method="get" class="form-inline my-2 my-lg-0">
+                {{ search_all_form }}
+                <input type="submit" class="btn btn-outline-success my-2 my-sm-0" value="Поиск" />
+                </form>
+            </li>
           <li>
             <a class="nav-link" href="#">О нас</a>
           </li>
           <li>
             <a class="nav-link" href="#">Обратная связь</a>
           </li>
-            <li>
-            <a class="nav-link" href="/user">Личный кабинет</a>
-          </li>
-            <li>
-            <a class="nav-link" href="/user/reg">Регистрация</a>
-          </li>
         </ul>
-
-        <form action="" class="form-inline my-2 my-lg-0">
-            <input type="text" class="form-control mr-sm-2" placeholder="Поиск" aria-label="Поиск">
-            <a href="find" class="btn btn-outline-success my-2 my-sm-0">Поиск</a>
-        </form>
       </div>
     </nav>﻿
 

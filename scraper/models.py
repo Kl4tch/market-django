@@ -39,6 +39,7 @@ class GroupTitle(models.Model):
 class AttributeTitle(models.Model):
     bigTitle = models.ForeignKey('GroupTitle', on_delete=models.CASCADE)
     attr = models.CharField(max_length=50)
+    isFiltered = models.BooleanField(default=False)
 
     class Meta:
         verbose_name = "Имя характеристики"

@@ -23,11 +23,13 @@ urlpatterns = [
     path('', views.category),
     path('index', views.index, name='main2'),
     path('test', views.test, name='test'),
-    path('category/<str:category>', views.products),
+    path('category/<str:category>/', views.products),
     path('<str:slug>/<int:id>/', views.detail),
     # path('<str:slug>/<int:id>/add', views.add),
     # path('<str:slug>/<int:id>/add_review', views.add_review),
-    path('search', views.search),
+    # path('category/<str:category>/search', views.searchAll),
+    path('category/<str:category>/search', views.searchInCategory),
+    path('search', views.searchAll),
 ]
 
 

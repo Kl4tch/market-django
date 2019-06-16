@@ -1,8 +1,6 @@
 from django.contrib import admin
 from .models import *
-from django.utils.safestring import mark_safe
-from django.db import models
-from django.contrib.admin.widgets import AdminFileWidget
+from scraper.models import StoreItem
 
 
 admin.site.register(Brand)
@@ -16,6 +14,11 @@ class ImageLine(admin.StackedInline):
 
 class ItemDetailLine(admin.StackedInline):
     model = ItemDetail
+    extra = 1
+
+
+class StoreItemLine(admin.StackedInline):
+    model = StoreItem
     extra = 1
 
 #
@@ -42,7 +45,7 @@ class ItemDetailLine(admin.StackedInline):
 class ItemAdmin(admin.ModelAdmin):
     prepopulated_fields = {"slug": ("title",)}
     list_display = ('title', 'is_enabled')
-    inlines = [ImageLine,ItemDetailLine]
+    inlines = [ImageLine, StoreItemLine, ItemDetailLine]
     search_fields = ['title', ]
     list_per_page = 20
     list_filter = ('category', 'brand')

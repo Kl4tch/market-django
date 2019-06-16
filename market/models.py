@@ -14,6 +14,7 @@ class Item(models.Model):
     slug = models.SlugField(max_length=100)
     brand = models.ForeignKey('Brand', on_delete=models.CASCADE, null=True)
     rozetkaUrl = models.CharField(max_length=200, blank=True, null=True)
+    priceRozetka = models.IntegerField(blank=True, null=True)
 
     def __str__(self):
         return self.title

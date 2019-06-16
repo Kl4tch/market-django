@@ -66,34 +66,29 @@ class Command(BaseCommand):
         getAll()
 
         def getTitle():
+            # 9.06 какого-то черта к некоторым товарам может быть другой стиль заголовка
             titleSource = soup.find_all('h2', 'detail-title h1')
             if len(titleSource) == 0:
-                titleSource = soup.find_all('h2', 'h1 ng-star-inserted')
-            titleSource = str(titleSource[0])
-            i1 = titleSource.find('>')+1
-            i2 = titleSource.find('</h2>')
+                titleSource = soup.find('h2', 'h1 ng-star-inserted')
 
-            titleSource.replace('\n', '')
-            titleSource.replace(' ', '')
-            titleSource.replace('\n', '')
+            titleSource = titleSource.text
 
             # в розетке плюшки при покупки к некоторым товарам
             # указываются в названии через "+ ...", отсекаем это
             plusInd = titleSource.find(' + ')
 
-
             if plusInd == -1:
-                t = titleSource[i1:i2]
+                t = titleSource
             else:
                 plus2Ind = titleSource.find(')', plusInd)
                 if plus2Ind != -1:
-                    t = titleSource[i1: plus2Ind+1]
+                    t = titleSource[: plus2Ind+1]
                 else:
-                    t = titleSource[i1:plusInd]
+                    t = titleSource[:plusInd]
             return t
 
         # почти идеально работает, brand я вытаскиваю из script, в 1-5% почему-то его
-        # там нет, вместо этого в название бренда будет просто "НЕОПРЕДЕЛЕН"
+        # там нет, вместо этого в название бренда будет просто "НЕОПРЕДЕЛЕН",
         def getBrand():
             a = str(soup)
 
@@ -125,20 +120,11 @@ class Command(BaseCommand):
             soup = BeautifulSoup(content, "html.parser")
 
             titles = soup.find_all('div', {'class':'g-i-tile-i-title clearfix'})
-            titlesS = []
-
-            for i in titles:
-                titlesS.append(str(i))
 
             itemsMainUrls = []
 
-            for i1 in titlesS:
-                a = i1.find("href")
-                a1 = i1.find('"', a)+1
-                a2 = i1.find('"', a1+1)
-                link = i1[a1:a2]
-                print(f"itemsMainUrl = {link}")
-                itemsMainUrls.append(link)
+            for i in titles:
+                itemsMainUrls.append(i.find('a').get('href'))
 
             for itemMainUrl in itemsMainUrls:
                 itemDetailsUrl = itemMainUrl + "characteristics/"

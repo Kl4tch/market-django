@@ -2,10 +2,20 @@
     {% load static %}
 {% endblock %}
 
+<head>
+    <link rel="stylesheet" href="{% static 'bootstrap-4.3.1-dist/css/bootstrap.css' %}">
+    <script src="{% static 'bootstrap-4.3.1-dist/js/bootstrap.min.js' %}"></script>
+</head>
+
+
 {% block content %}
 
-    <form action="start" method="get">
-        {{ form }}
+    <form action="start" method="get" class="form-check" style="margin: 5px">
+        {% for field in form.visible_fields %}
+            <div class="fieldWrapper">
+                {{ field.label_tag }} {{ field }}
+            </div>
+        {% endfor %}
         <input type="submit" value="Старт" />
     </form>
 {% endblock %}
