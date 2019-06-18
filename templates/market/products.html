@@ -3,31 +3,7 @@
 {# TODO пофиксить размеры картинок  #}
 <div class="container">
       <div class="row">
-           <div class="product_top_bar col-3">
-                <form action="search" method="get" style="position: fixed; overflow: auto; height: 100%">
-                    {{ searchForm }} <br>
-                    <strong>Цена:</strong><br>
-                    <input type="number" placeholder="Мин:" name="minPrice">
-                    <input type="number" placeholder="Макс:" name="maxPrice"><br>
-                    {% for filterTitle in filterTitles %}
-                        <strong>{{filterTitle}}</strong><br>
 
-                        {% for filterValue in filterValues %}
-                            {% if filterValue.attr.attributeTitle == filterTitle %}
-                                <input type="checkbox" id="{{ filterValue.attr }}" name="filterValue"
-                                       value={{ filterValue.attr }}>
-                                <label for="{{ filterValue.attr }}">{{ filterValue.attr }}</label><br>
-                            {% endif %}
-                        {% endfor %}
-
-                    {% endfor  %}
-                    <strong>Производители:</strong><br>
-                    {% for brand in brands %}
-                        <input type="checkbox" id="{{ brand.name }}" name="brand" value={{ brand.name }}>
-                        <label for="{{ brand.name }}">{{ brand.name }}</label><br>
-                    {% endfor %}
-                    <input type="submit" value="Поиск" />
-                </form>
 
 
 {#                <div class="left_dorp">#}
@@ -55,13 +31,17 @@
 {#                        </ul>#}
 {#                    </nav>#}
 {#                </div>#}
-            </div>
 
           <div class="row col-9">
 
+            {% if all_items|length == 0 %}
+                <h1>Нет результатов поиска</h1>
+            {% endif %}
+
+
             {% for item in all_items %}
 
-            <div class="col-sm-4 col-md-4 col-lg-4 col-xl-4" style="margin-bottom: 20px;">
+            <div class="col-4" style="margin-bottom: 20px;">
                 <div class="f_p_item">
                     <div class="f_p_img">
                          {% for img in all_images %}
@@ -83,8 +63,31 @@
             </div>
 
             {% endfor %}
-
         </div>
+      <form action="search" class="col-3" method="get" style="position:fixed; right:0; overflow: auto; height: 85%">
+                    {{ searchForm }} <br>
+                    <strong>Цена:</strong><br>
+                    <input type="number" placeholder="Мин:" name="minPrice">
+                    <input type="number" placeholder="Макс:" name="maxPrice"><br>
+                    {% for filterTitle in filterTitles %}
+                        <strong>{{filterTitle}}</strong><br>
+
+                        {% for filterValue in filterValues %}
+                            {% if filterValue.attributeTitle == filterTitle %}
+                                <input type="checkbox" id="{{ filterValue.id }}" name="filterValue"
+                                       value={{ filterValue.id }}>
+                                <label for="{{ filterValue}}">{{ filterValue }}</label><br>
+                            {% endif %}
+                        {% endfor %}
+
+                    {% endfor  %}
+                    <strong>Производители:</strong><br>
+                    {% for brand in brands %}
+                        <input type="checkbox" id="{{ brand.name }}" name="brand" value={{ brand.name }}>
+                        <label for="{{ brand.name }}">{{ brand.name }}</label><br>
+                    {% endfor %}
+                    <input type="submit" value="Поиск" class="btn btn-outline-success my-2 my-sm-0" />
+                </form>
     </div>
 </div>
 {% endblock %}

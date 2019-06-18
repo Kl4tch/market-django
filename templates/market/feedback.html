@@ -1,0 +1,15 @@
+{% extends 'market/base.html' %}
+{% block content %}
+<div class="container">
+      <div class="row">
+          <form action="feedback" method="post">
+              {% for i in form %}
+                <div style="margin-bottom: 5px">{{ i }}</div> <br>
+              {% endfor %}
+
+              <textarea rows="10" cols="45" name="text" placeholder="Введите сообщение"></textarea><br>
+              <input type="submit" value="Отправить" class="btn btn-outline-success my-2 my-sm-0" />
+          </form>
+    </div>
+</div>
+{% endblock %}

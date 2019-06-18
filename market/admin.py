@@ -54,8 +54,13 @@ class ItemAdmin(admin.ModelAdmin):
 class ItemDetailAdmin(admin.ModelAdmin):
     list_filter = ('item',)
 
+class FeedBackAdmin(admin.ModelAdmin):
+    search_fields = ['title', 'phone']
+    list_display = ('title', 'answered', )
 
 
+
+admin.site.register(FeedBack, FeedBackAdmin)
 admin.site.register(Item, ItemAdmin)
 admin.site.register(ItemDetail, ItemDetailAdmin)
 # admin.site.register(Category, CategoryAdmin)

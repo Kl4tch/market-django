@@ -86,3 +86,21 @@ class Image(models.Model):
         verbose_name = "Изображение товара"
         verbose_name_plural = "Изображения товаров"
 
+
+class FeedBack(models.Model):
+    phone = models.CharField(max_length=16)
+    name = models.CharField(max_length=30)
+    text = models.TextField()
+    date = models.DateTimeField(auto_now_add=True)
+    answered = models.BooleanField(default=False)
+
+    def title(self):
+        return f"({self.date.strftime('%Y-%m-%d-%H.%M.%S')}) {self.name}  {self.phone}"
+
+    def __str__(self):
+        return f"{self.date.strftime('%Y-%m-%d-%H.%M.%S')} {self.name} ({self.phone})"
+
+
+    class Meta:
+        verbose_name = "Обратная связь"
+        verbose_name_plural = "Заявки"

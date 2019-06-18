@@ -28,8 +28,10 @@ urlpatterns = [
     # path('<str:slug>/<int:id>/add', views.add),
     # path('<str:slug>/<int:id>/add_review', views.add_review),
     # path('category/<str:category>/search', views.searchAll),
-    path('category/<str:category>/search', views.searchInCategory),
+    path('category/<str:category>/search', views.products),
     path('search', views.searchAll),
+    path('feedback', views.feedback),
+    path('about', views.about),
 ]
 
 

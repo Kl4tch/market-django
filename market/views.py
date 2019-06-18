@@ -10,6 +10,8 @@ from scraper.models import StoreItem
 from .forms import *
 from django.db.models import Min
 from django import template
+import operator
+
 
 
 # Create your views here.
@@ -86,59 +88,104 @@ def add_review(request, slug, id):
 
 
 def products(request, category):
-    itemsCategory = Item.objects.filter(category__in=Category.objects.filter(folder=category))
-    imageItems = Image.objects.filter(item__in=itemsCategory, position=0)
-    searchForm = SearchForm()
+    # получаем все атрибуты поиска
+    searchTitle = request.GET.get('search')
+    brands = request.GET.getlist('brand')
+    filterValues = request.GET.getlist('filterValue')
+    minPrice = request.GET.get('minPrice')
+    maxPrice = request.GET.get('maxPrice')
 
-    brands = []
+    searchForm = SearchForm(initial={'search': searchTitle})
 
-    for i in itemsCategory:
-        brands.append(i.brand)
+    allItemsInCategory = Item.objects.filter(category__in=Category.objects.filter(folder=category)).order_by('-date')
 
-    brands_set = set(brands)
-    unique_brands = (list(brands_set))
+    if filterValues != []:
+        filters = []
 
-    itemsStores = StoreItem.objects.filter(item__in=itemsCategory)
+        for i in filterValues:
+            filters.append(AttributeValue.objects.get(id=i))
 
-    for item in itemsCategory:
-        itemStores = itemsStores.filter(item=item)
-        itemMinPrice = itemStores.annotate(min=Min('price'))
-        item.priceRozetka = itemMinPrice[0].min
+        a = ItemDetail.objects.filter(attr__in=filters)
+
+        items = []
+
+        for i in a:
+            items.append(i.item)
+    else:
+        items = allItemsInCategory
+
+    if searchTitle is not None and searchTitle != "":
+        items = items.filter(title__contains=searchTitle)
+
+    if brands != []:
+        items = items.filter(brand__name__in=brands)
+
+    def setPrices():
+        itemsStores = StoreItem.objects.filter(item__in=items)
+
+        for item in items:
+            itemStores = itemsStores.filter(item=item)
+            itemMinPrice = itemStores.annotate(min=Min('price'))
+            item.priceRozetka = itemMinPrice[0].min
+
+    setPrices()
+
+    if (minPrice != "" and maxPrice != "") and (minPrice is not None and maxPrice is not None):
+        newItems = []
+        for item in items:
+            if item.priceRozetka > int(minPrice) and item.priceRozetka < int(maxPrice):
+                newItems.append(item)
+
+        items = newItems
 
 
-    filtersTitle = AttributeTitle.objects.all().filter(isFiltered=True)
+    imageItems = Image.objects.filter(item__in=items, position=0)
 
-    filterValues = ItemDetail.objects.all().filter(item__in=itemsCategory, attr__attributeTitle__isFiltered=True)
+    def getUniqueBrands():
+        brands = []
 
+        for i in allItemsInCategory:
+            brands.append(i.brand)
+
+        brands_set = set(brands)
+        return list(brands_set)
+
+    setPrices()
+
+    uniqueBrands = sorted(getUniqueBrands(), key=operator.attrgetter('name'))
+
+
+    #--------------- вывод фильтров начало----------------------
+
+    filterValues = ItemDetail.objects.all().filter(item__in=allItemsInCategory, attr__attributeTitle__isFiltered=True)
     filterValuesUnique = []
+    testUniq = []
 
     for i in filterValues:
-        for i2 in filterValuesUnique:
-            if i.attr != i2.attr:
-                filterValuesUnique.append(i)
+        if i.attr not in testUniq:
+            testUniq.append(i.attr)
+            filterValuesUnique.append(i.attr)
 
-    for i in filterValuesUnique:
-        print(i)
+    filterValuesUnique = sorted(filterValuesUnique, key=operator.attrgetter('value'))
 
     filterTitles = []
 
     for i in filterValues:
-        filterTitles.append(i)
+        filterTitles.append(i.attr.attributeTitle)
 
     filterTitles_set = set(filterTitles)
     unique_Titles = list(filterTitles_set)
 
-
+    # --------------- вывод фильтров конец----------------------
 
     context = {
         'searchForm': searchForm,
-        'all_items': itemsCategory,
+        'all_items': items,
         'all_images': imageItems,
         'category': category,
-        'brands': unique_brands,
-        'filterTitles': filtersTitle,
+        'brands': uniqueBrands,
+        'filterTitles': unique_Titles,
         'filterValues': filterValuesUnique,
-
     }
 
     return render(request, 'market/products.html', context)
@@ -148,6 +195,20 @@ def category(request):
     categories = get_list_or_404(Category)
 
     return render(request, 'market/categories.html', {'categories': categories})
+
+
+def feedback(request):
+    form = FeedBackForm()
+
+    context = {
+        'form': form,
+    }
+
+    return render(request, 'market/feedback.html', context)
+
+
+def about(request):
+    return render(request, 'market/about.html')
 
 
 def searchAll(request):
@@ -161,61 +222,6 @@ def searchAll(request):
         'search_all_form': form,
         'all_items': items,
         'all_images': imageItems,
-    }
-
-    return render(request, 'market/products.html', context)
-
-
-def searchInCategory(request, category):
-    print("HERE")
-    searchTitle = request.GET.get('search')
-    brands = request.GET.getlist('brand')
-    minPrice = request.GET.get('minPrice')
-    maxPrice = request.GET.get('maxPrice')
-
-    print(brands)
-
-    form = SearchForm(initial={'search': searchTitle})
-
-    if brands != []:
-        items = Item.objects.filter(title__contains=searchTitle, brand__name__in=brands,
-                                category__in=Category.objects.filter(folder=category)).order_by('-date')
-    else:
-        items = Item.objects.filter(title__contains=searchTitle,
-                                category__in=Category.objects.filter(folder=category)).order_by('-date')
-
-    imageItems = Image.objects.filter(item__in=items, position=0)
-
-
-    itemsStores = StoreItem.objects.filter(item__in=items)
-
-    for item in items:
-        itemStores = itemsStores.filter(item=item)
-        itemMinPrice = itemStores.annotate(min=Min('price'))
-        item.priceRozetka = itemMinPrice[0].min
-
-    newItems = []
-    for item in items:
-        if minPrice != "" or maxPrice != "":
-            if item.priceRozetka > int(minPrice) and item.priceRozetka < int(maxPrice):
-                newItems.append(item)
-
-
-    brands = []
-
-    allItems = Item.objects.filter(category__in=Category.objects.filter(folder=category))
-
-    for i in allItems:
-        brands.append(i.brand)
-
-    brands_set = set(brands)
-    unique_brands = (list(brands_set))
-
-    context = {
-        'searchForm': form,
-        'all_items': newItems,
-        'all_images': imageItems,
-        'brands': unique_brands,
     }
 
     return render(request, 'market/products.html', context)
