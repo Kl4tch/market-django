@@ -99,8 +99,15 @@ def products(request, category):
 
     allItemsInCategory = Item.objects.filter(category__in=Category.objects.filter(folder=category)).order_by('-date')
 
+    beforeFilterValues = []
+
     if filterValues != []:
         filters = []
+
+        print("Count = " + str(len(filterValues)))
+        for i in filterValues:
+            beforeFilterValues.append(int(i))
+
 
         for i in filterValues:
             filters.append(AttributeValue.objects.get(id=i))
@@ -131,6 +138,8 @@ def products(request, category):
     setPrices()
 
     if (minPrice != "" and maxPrice != "") and (minPrice is not None and maxPrice is not None):
+        minPrice = int(minPrice)
+        maxPrice = int(maxPrice)
         newItems = []
         for item in items:
             if item.priceRozetka > int(minPrice) and item.priceRozetka < int(maxPrice):
@@ -155,7 +164,7 @@ def products(request, category):
     uniqueBrands = sorted(getUniqueBrands(), key=operator.attrgetter('name'))
 
 
-    #--------------- вывод фильтров начало----------------------
+    #--------------- вывод атрибутов фильтров начало----------------------
 
     filterValues = ItemDetail.objects.all().filter(item__in=allItemsInCategory, attr__attributeTitle__isFiltered=True)
     filterValuesUnique = []
@@ -178,14 +187,23 @@ def products(request, category):
 
     # --------------- вывод фильтров конец----------------------
 
+    print("AAAAAAA")
+
+    for i in beforeFilterValues:
+        print(str(i))
+
     context = {
         'searchForm': searchForm,
         'all_items': items,
         'all_images': imageItems,
         'category': category,
+        'beforeBrands': brands,
+        'beforeFilterValues': beforeFilterValues,
         'brands': uniqueBrands,
         'filterTitles': unique_Titles,
         'filterValues': filterValuesUnique,
+        'minPrice': minPrice,
+        'maxPrice': maxPrice,
     }
 
     return render(request, 'market/products.html', context)

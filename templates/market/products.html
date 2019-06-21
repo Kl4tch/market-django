@@ -67,15 +67,18 @@
       <form action="search" class="col-3" method="get" style="position:fixed; right:0; overflow: auto; height: 85%">
                     {{ searchForm }} <br>
                     <strong>Цена:</strong><br>
-                    <input type="number" placeholder="Мин:" name="minPrice">
-                    <input type="number" placeholder="Макс:" name="maxPrice"><br>
+                    <input type="number" placeholder="Мин:" name="minPrice" value="{{minPrice }}">
+                    <input type="number" placeholder="Макс:" name="maxPrice" value="{{ maxPrice }}"><br>
                     {% for filterTitle in filterTitles %}
                         <strong>{{filterTitle}}</strong><br>
 
                         {% for filterValue in filterValues %}
                             {% if filterValue.attributeTitle == filterTitle %}
-                                <input type="checkbox" id="{{ filterValue.id }}" name="filterValue"
-                                       value={{ filterValue.id }}>
+                                <input type="checkbox" id="{{ filterValue.id }}" name="filterValue" value={{ filterValue.id }}
+                                       {% if filterValue.id in beforeFilterValues %}
+                                           checked
+                                       {% endif %}
+                                >
                                 <label for="{{ filterValue}}">{{ filterValue }}</label><br>
                             {% endif %}
                         {% endfor %}
@@ -83,7 +86,11 @@
                     {% endfor  %}
                     <strong>Производители:</strong><br>
                     {% for brand in brands %}
-                        <input type="checkbox" id="{{ brand.name }}" name="brand" value={{ brand.name }}>
+                        <input type="checkbox" id="{{ brand.name }}" name="brand" value={{ brand.name }}
+                        {% if brand.name in beforeBrands %}
+                            checked
+                        {% endif %}
+                        >
                         <label for="{{ brand.name }}">{{ brand.name }}</label><br>
                     {% endfor %}
                     <input type="submit" value="Поиск" class="btn btn-outline-success my-2 my-sm-0" />
